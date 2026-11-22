@@ -4,17 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>تصاميم تكنيكات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --blue:#349DD7; --blue-strong:#1F7CB6; --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; }
     * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; background:var(--bg); color:var(--ink); font-family:system-ui,sans-serif; }
+    body { margin:0; min-height:100vh; background:var(--bg); color:var(--ink); font-family:'Readex Pro', system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
     main { width:min(1500px, calc(100% - 32px)); margin:0 auto; padding:24px 0 32px; }
-    h1 { margin:0; text-align:center; }
+    h1 { margin:0; text-align:center; font-weight:700; letter-spacing:-.3px; }
     .controls { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:18px 0; }
     select, input, button { min-height:42px; border:1px solid #D5DAE3; border-radius:10px; background:#fff; color:var(--ink); font:inherit; }
     select { padding:0 12px; }
     input { width:min(420px, calc(100vw - 32px)); padding:0 12px; direction:ltr; }
-    button { padding:0 16px; border:0; background:var(--blue-strong); color:#fff; font-weight:700; cursor:pointer; }
+    button { padding:0 18px; border:0; background:var(--blue-strong); color:#fff; font-weight:600; cursor:pointer; transition:transform .15s ease, background .15s ease; }
+    button:hover { background:#176B9E; transform:translateY(-1px); }
     .comparison { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; }
     .panel { min-width:0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 4px 18px rgba(27,37,51,.08); }
     .panel-header { display:flex; align-items:center; justify-content:space-between; min-height:58px; padding:10px 14px; border-bottom:1px solid #E6E9EF; }
@@ -63,10 +67,12 @@
       website: [
         ['01-home.html', 'الرئيسية'],
         ['09-articles.html', 'المقالات'],
-        ['02-photographer-profile.html', 'صفحة المصور'],
+        ['10-videos.html', 'الفيديوهات'],
         ['03-services.html', 'الخدمات'],
+        ['11-service-order.html', 'طلب الخدمة'],
         ['04-products.html', 'المنتجات'],
         ['05-events.html', 'الفعاليات'],
+        ['02-photographer-profile.html', 'صفحة المصور'],
         ['06-event-details.html', 'تفاصيل الفعالية'],
         ['07-event-entry.html', 'المشاركة'],
         ['08-results-approval.html', 'اعتماد النتائج']
@@ -97,16 +103,25 @@
     const newUrl = document.getElementById('newUrl');
 
     newFrame.addEventListener('load', () => {
-      const frameDocument = newFrame.contentDocument;
+      let frameDocument;
+      try {
+        frameDocument = newFrame.contentDocument;
+      } catch (e) {
+        return;
+      }
       if (!frameDocument) return;
 
       frameDocument.addEventListener('click', (event) => {
         const link = event.target.closest('a');
-        if (!link || link.textContent.replace(/\s+/g, ' ').trim() !== 'المقالات') return;
+        if (!link) return;
+        const href = (link.getAttribute('href') || '').trim();
+        if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
 
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        newFrame.src = 'website/09-articles.html';
+        const filename = href.split('/').pop().split('?')[0].split('#')[0];
+        const matched = pages[platform.value].find(([file]) => file === filename);
+        if (matched && platform.value === 'website') {
+          page.value = matched[0];
+        }
       }, true);
     });
 
@@ -122,12 +137,16 @@
     }
 
     function updateFrames() {
-      const folder = platform.value === 'website' ? 'website' : 'app-screens';
-      const url = `${folder}/${page.value}`;
-      if (platform.value === 'website' && page.value === '09-articles.html') {
-        oldFrame.src = 'website/01-home.html';
-        newFrame.src = newUrl.value.trim() || 'website/09-articles.html';
+      if (platform.value === 'website') {
+        const isNewOnly = page.value === '09-articles.html' || page.value === '10-videos.html' || page.value === '11-service-order.html';
+        if (isNewOnly) {
+          if (!oldFrame.src) oldFrame.src = 'website/01-home.html';
+        } else {
+          oldFrame.src = `website/${page.value}`;
+        }
+        newFrame.src = newUrl.value.trim() || `website-new/${page.value}`;
       } else {
+        const url = `app-screens/${page.value}`;
         oldFrame.src = url;
         newFrame.src = newUrl.value.trim() || url;
       }
@@ -136,11 +155,11 @@
     platform.addEventListener('change', updatePages);
     page.addEventListener('change', updateFrames);
     document.getElementById('loadNew').addEventListener('click', () => {
-      const folder = platform.value === 'website' ? 'website' : 'app-screens';
-      const defaultUrl = platform.value === 'website' && page.value === '09-articles.html'
-        ? 'website/09-articles.html'
-        : `${folder}/${page.value}`;
-      newFrame.src = newUrl.value.trim() || defaultUrl;
+      if (platform.value === 'website') {
+        newFrame.src = newUrl.value.trim() || `website-new/${page.value}`;
+      } else {
+        newFrame.src = newUrl.value.trim() || `app-screens/${page.value}`;
+      }
     });
 
     updatePages();

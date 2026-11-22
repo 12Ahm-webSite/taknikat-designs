@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>الفيديوهات | تكنيكات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #349DD7;
+      --blue-strong: #1F7CB6;
+      --pink: #CE107E;
+      --yellow: #EDE518;
+      --bg: #F1F2F6;
+      --ink: #1B2533;
+      --muted: #5A6577;
+      --line: #E6E9EF;
+      --surface: #FFFFFF;
+      --font-main: 'Readex Pro', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue-strong); text-decoration: none; }
+
+    /* ====== Taknikat Aperture Splash Loader ====== */
+    #taknikatSplash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #1B2533;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      transition: opacity .55s cubic-bezier(.16,1,.3,1), visibility .55s;
+    }
+    #taknikatSplash.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-lens {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .aperture-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 3px solid rgba(52, 157, 215, 0.25);
+      border-top-color: var(--blue);
+      border-bottom-color: var(--pink);
+      animation: spinRing 2.4s linear infinite;
+    }
+    .aperture-blades {
+      width: 78px;
+      height: 78px;
+      animation: aperturePulse 1.8s ease-in-out infinite alternate;
+    }
+    .splash-logo-text {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .splash-logo-text span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pink);
+      animation: pulseDot 1.2s infinite;
+    }
+    .splash-bar {
+      width: 140px;
+      height: 3px;
+      background: rgba(255,255,255,.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .splash-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--pink));
+      border-radius: 999px;
+      animation: fillBar 1.2s ease forwards;
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes aperturePulse {
+      0% { transform: scale(.85) rotate(0deg); opacity: .7; }
+      100% { transform: scale(1.08) rotate(35deg); opacity: 1; }
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: .5; }
+      50% { transform: scale(1.6); opacity: 1; }
+    }
+    @keyframes fillBar {
+      0% { width: 0%; }
+      70% { width: 85%; }
+      100% { width: 100%; }
+    }
+
+    /* ====== Header (Modern Glassmorphism) ====== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(52, 157, 215, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(27,37,51,.08);
+      transition: background .2s ease;
+    }
+    nav {
+      max-width: 1280px;
+      margin: auto;
+      min-height: 74px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      color: #FFFFFF;
+      border-radius: 999px;
+      transition: background .2s ease, transform .15s ease;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.18);
+    }
+    .nav-links .active {
+      font-weight: 700;
+      background: rgba(255,255,255,0.24);
+      border-bottom: 2px solid #FFFFFF;
+    }
+    .auth-btn {
+      padding: 9px 24px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--blue-strong);
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 3px 10px rgba(27,37,51,.1);
+    }
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(27,37,51,.15);
+    }
+
+    /* ====== Main Content ====== */
+    main {
+      max-width: 1280px;
+      margin: auto;
+      padding: 36px 24px 80px;
+    }
+
+    /* Header Bar */
+    .title-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .title-bar h1 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .title-bar .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .add-video-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      background: var(--blue-strong);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 14px;
+      border: 0;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      box-shadow: 0 4px 14px rgba(31,124,182,.3);
+    }
+    .add-video-btn:hover {
+      background: #176B9E;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(31,124,182,.4);
+    }
+
+    /* Filters & Search Row */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter {
+      height: 42px;
+      padding: 0 18px;
+      border: 1px solid #D5DAE2;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: #4A5568;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .filter:hover {
+      border-color: var(--blue);
+      color: var(--blue-strong);
+    }
+    .filter.active {
+      border-color: var(--blue-strong);
+      background: var(--blue-strong);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(31,124,182,.25);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 42px;
+      padding: 0 14px;
+      border: 1px solid #D5DAE2;
+      border-radius: 999px;
+      background: #FFFFFF;
+      min-width: 260px;
+    }
+    .search-box input {
+      border: 0;
+      background: transparent;
+      font: inherit;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+      color: var(--ink);
+    }
+
+    /* ====== Featured Hero Video ====== */
+    .featured-hero {
+      margin-bottom: 36px;
+      background: #FFFFFF;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(27,37,51,.07);
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      border: 1px solid rgba(230,233,239,.8);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .featured-hero:hover {
+      box-shadow: 0 12px 36px rgba(27,37,51,.12);
+    }
+    .hero-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #18283E, #0E1622);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .hero-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .82;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+    .hero-thumb:hover img {
+      transform: scale(1.04);
+      opacity: .92;
+    }
+    .play-btn-lg {
+      position: relative;
+      z-index: 2;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-strong);
+      box-shadow: 0 8px 30px rgba(0,0,0,.35);
+      transition: transform .25s cubic-bezier(.16,1,.3,1), background .2s ease;
+    }
+    .hero-thumb:hover .play-btn-lg {
+      transform: scale(1.12);
+      background: #FFFFFF;
+    }
+    .badge-duration {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(15,22,32,.85);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+    .badge-quality {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--pink);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .hero-content {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .tag-highlight {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(52,157,215,.12);
+      color: var(--blue-strong);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .hero-content h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+    .hero-content p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .hero-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #E6EBF2;
+      object-fit: cover;
+      border: 2px solid var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-strong);
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .author-info strong {
+      display: block;
+      font-size: 14px;
+    }
+    .author-info span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ====== Video Grid ====== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .video-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27,37,51,.06);
+      border: 1px solid rgba(230,233,239,.8);
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .2s ease;
+      cursor: pointer;
+    }
+    .video-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(27,37,51,.12);
+      border-color: rgba(52,157,215,.4);
+    }
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #1C2736, #0E1622);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .card-thumb-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: .85;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+    .video-card:hover .card-thumb-bg {
+      transform: scale(1.06);
+      opacity: .95;
+    }
+    .play-btn-sm {
+      position: relative;
+      z-index: 2;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-strong);
+      box-shadow: 0 4px 18px rgba(0,0,0,.3);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .video-card:hover .play-btn-sm {
+      transform: scale(1.14);
+      background: #FFFFFF;
+    }
+    .card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-meta-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .category-pill {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue-strong);
+    }
+    .views-count {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .card-body h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .card-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .creator-mini {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .creator-mini-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E6EBF2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue-strong);
+      border: 1.5px solid var(--pink);
+    }
+    .creator-mini span {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .city-tag {
+      font-size: 11px;
+      color: var(--muted);
+      background: #F1F3F7;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* ====== Video Player Modal ====== */
+    #videoModal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(15, 22, 32, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease, visibility .3s;
+    }
+    #videoModal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-box {
+      width: min(920px, 100%);
+      background: #1B2533;
+      color: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      border: 1px solid rgba(255,255,255,.12);
+      transform: scale(.95);
+      transition: transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    #videoModal.open .modal-box {
+      transform: scale(1);
+    }
+    .modal-screen {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #0B1017;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-screen-pulse {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(52, 157, 215, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulsePlay 1.6s infinite;
+    }
+    .modal-screen-pulse svg {
+      width: 36px;
+      height: 36px;
+      fill: #349DD7;
+    }
+    .modal-info {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .modal-info h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+    }
+    .modal-info p {
+      margin: 0;
+      color: #A0AEC0;
+      font-size: 13px;
+    }
+    .close-modal-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      border: 0;
+      color: #FFFFFF;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .close-modal-btn:hover {
+      background: rgba(255,255,255,.25);
+    }
+
+    @keyframes pulsePlay {
+      0% { transform: scale(.9); box-shadow: 0 0 0 0 rgba(52,157,215,.6); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(52,157,215,0); }
+      100% { transform: scale(.9); box-shadow: 0 0 0 0 rgba(52,157,215,0); }
+    }
+
+    /* ====== Footer ====== */
+    footer {
+      margin-top: 60px;
+      padding: 24px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      background: #FFFFFF;
+      font-size: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .featured-hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      nav { align-items: flex-start; }
+      .nav-links { max-width: 240px; }
+      .grid { grid-template-columns: 1fr; }
+      .title-bar h1 { font-size: 26px; }
+      .search-box { min-width: 100%; }
+    }
+  </style>
+  <link rel="stylesheet" href="modern-theme.css">
+</head>
+<body>
+
+  <!-- شاشة اللودينج بانميشن عدسة تكنيكات -->
+  <div id="taknikatSplash">
+    <div class="splash-lens">
+      <div class="aperture-ring"></div>
+      <svg class="aperture-blades" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="44" stroke="#349DD7" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M50 16 L65 50 L50 42 Z" fill="#349DD7" opacity="0.8"/>
+        <path d="M78 35 L58 65 L50 54 Z" fill="#CE107E" opacity="0.85"/>
+        <path d="M78 65 L42 68 L48 56 Z" fill="#EDE518" opacity="0.9"/>
+        <path d="M50 84 L35 50 L50 58 Z" fill="#349DD7" opacity="0.8"/>
+        <path d="M22 65 L42 35 L50 46 Z" fill="#CE107E" opacity="0.85"/>
+        <path d="M22 35 L58 32 L52 44 Z" fill="#EDE518" opacity="0.9"/>
+        <circle cx="50" cy="50" r="14" fill="#1B2533" stroke="#FFFFFF" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <div class="splash-logo-text">
+      <span></span>
+      <span>تكنيكات</span>
+      <span style="background:var(--blue)"></span>
+    </div>
+    <div class="splash-bar">
+      <div class="splash-bar-fill"></div>
+    </div>
+  </div>
+
+  <header class="tkn-main-header">
+  <nav class="tkn-nav" aria-label="القائمة الرئيسية">
+    <a class="tkn-logo" href="01-home.html"><img alt="تكنيكات" src="../assets/logo-on-blue.png"/></a>
+    <div class="tkn-nav-links">
+      <a href="01-home.html">الرئيسية</a>
+      <a href="09-articles.html">المقالات</a>
+      <a href="10-videos.html" class="active">الفيديوهات</a>
+      <a href="03-services.html">الخدمات</a>
+      <a href="04-products.html">المنتجات</a>
+      <a href="05-events.html">الفعاليات</a>
+      <a href="01-home.html#about">من نحن</a>
+      <a href="01-home.html#contact">اتصل بنا</a>
+    </div>
+    <a class="tkn-auth-btn" href="01-home.html">تسجيل الدخول</a>
+  </nav>
+</header>
+
+  <main>
+    <div class="title-bar">
+      <div>
+        <h1>معرض الفيديوهات</h1>
+        <p class="subtitle">استكشف أحدث الإنتاجات المرئية والأعمال السينمائية من نخبة مصوري الفيديو في مجتمع تكنيكات</p>
+      </div>
+      <button class="add-video-btn" type="button" onclick="alert('خاصية إضافة فيديو جديد متاحة للأعضاء المسجلين في تكنيكات')">
+        <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="18"><path d="M12 5v14M5 12h14"/></svg>
+        إضافة عمل مرئي
+      </button>
+    </div>
+
+    <!-- تصنيفات الفيديو والبحث -->
+    <div class="filter-row">
+      <div class="filters" aria-label="تصنيفات الفيديوهات">
+        <button class="filter active" data-cat="all" type="button">الكل</button>
+        <button class="filter" data-cat="commercial" type="button">إعلانات تجارية</button>
+        <button class="filter" data-cat="events" type="button">تغطيات وفعاليات</button>
+        <button class="filter" data-cat="drone" type="button">تصوير جوي (درون)</button>
+        <button class="filter" data-cat="cinematic" type="button">سينمائي وتراث</button>
+      </div>
+      <div class="search-box">
+        <svg fill="none" height="18" stroke="#5A6577" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="videoSearchInput" placeholder="ابحث باسم العمل أو المصور…" type="search"/>
+      </div>
+    </div>
+
+    <!-- العمل المرئي المميز -->
+    <section class="featured-hero" data-cat="drone" data-title="لقطات علوية لبعض مشاريع السعودية" data-creator="مفلح الحبابي">
+      <div class="hero-thumb" onclick="openVideoModal('لقطات علوية لبعض مشاريع السعودية', 'مفلح الحبابي — الرياض', 'مشاهد جوية ساحرة بدقة 4K توثق أضخم المشاريع الإنشائية والمعالم الحديثة في المملكة العربية السعودية بتقنيات درون سينمائية.')">
+        <div class="hero-thumb-bg" style="background: linear-gradient(135deg, rgba(20,30,45,.85), rgba(10,18,28,.9)), url('../assets/watch.jpg') center/cover;"></div>
+        <div class="badge-quality">4K ULTRA HD</div>
+        <div class="badge-duration">03:42</div>
+        <div class="play-btn-lg">
+          <svg fill="currentColor" height="28" viewBox="0 0 24 24" width="28"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="hero-content">
+        <span class="tag-highlight">العمل المرئي المميز لهذا الأسبوع</span>
+        <h2>لقطات علوية لبعض مشاريع السعودية</h2>
+        <p>مشاهد جوية ساحرة بدقة 4K توثق أضخم المشاريع الإنشائية والمعالم الحديثة في المملكة بتقنيات درون سينمائية احترافية وزوايا استثنائية.</p>
+        <div class="hero-author">
+          <div class="author-avatar">م</div>
+          <div class="author-info">
+            <strong>مفلح الحبابي</strong>
+            <span>مصور جوي ومخرج إعلاني · الرياض · 42.8K مشاهدة</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- شبكة بطاقات الفيديوهات -->
+    <section class="grid" id="videoCardsGrid">
+      <!-- بطاقة 1 -->
+      <article class="video-card" data-cat="events" data-title="تغطية فعالية الثقافة اليابانية في إثراء" data-creator="صالح العتيبي" onclick="openVideoModal('تغطية فعالية الثقافة اليابانية في إثراء', 'صالح العتيبي — الظهران', 'توثيق سينمائي لأجواء المهرجان الثقافي في مركز الملك عبدالعزيز الثقافي العالمي (إثراء) مع التركيز على الانفعالات الحية والتفاصيل الدقيقة.')">
+        <div class="card-thumb">
+          <div class="card-thumb-bg" style="background: linear-gradient(135deg, rgba(27,37,51,.7), rgba(15,22,32,.85));"></div>
+          <span class="badge-duration">02:15</span>
+          <div class="play-btn-sm">
+            <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="category-pill">تغطيات وفعاليات</span>
+            <span class="views-count">18.4K مشاهدة</span>
+          </div>
+          <h3>تغطية فعالية الثقافة اليابانية في إثراء</h3>
+          <div class="card-footer">
+            <div class="creator-mini">
+              <div class="creator-mini-avatar">ص</div>
+              <span>صالح العتيبي</span>
+            </div>
+            <span class="city-tag">الظهران</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- بطاقة 2 -->
+      <article class="video-card" data-cat="commercial" data-title="فيديو إعلاني لمحل الرقيب للأثاث" data-creator="عبدالله الغامدي" onclick="openVideoModal('فيديو إعلاني لمحل الرقيب للأثاث', 'عبدالله الغامدي — جدة', 'إنتاج إعلاني تجاري فاخر يبرز تفاصيل التصميم الداخلي وتوزيع الإضاءة الطبيعية للأثاث العصري مع حركات كاميرا انسيابية.')">
+        <div class="card-thumb">
+          <div class="card-thumb-bg" style="background: linear-gradient(135deg, rgba(31,124,182,.4), rgba(15,22,32,.9));"></div>
+          <span class="badge-duration">01:30</span>
+          <div class="play-btn-sm">
+            <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="category-pill">إعلانات تجارية</span>
+            <span class="views-count">24.1K مشاهدة</span>
+          </div>
+          <h3>فيديو إعلاني لمحل الرقيب للأثاث</h3>
+          <div class="card-footer">
+            <div class="creator-mini">
+              <div class="creator-mini-avatar">ع</div>
+              <span>عبدالله الغامدي</span>
+            </div>
+            <span class="city-tag">جدة</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- بطاقة 3 -->
+      <article class="video-card" data-cat="cinematic" data-title="حيث يلتقي الشموخ بالخفة — سينمائي للخيل" data-creator="أيوب كبور" onclick="openVideoModal('حيث يلتقي الشموخ بالخفة — لقطات سينمائية للخيل', 'أيوب كبور — الرياض', 'فيلم قصير يوثق أصالة الخيل العربية برؤية بصرية بطيئة بمعدل 120 إطاراً في الثانية مع موسيقى تصويرية ملهمة.')">
+        <div class="card-thumb">
+          <div class="card-thumb-bg" style="background: linear-gradient(135deg, rgba(206,16,126,.3), rgba(15,22,32,.9));"></div>
+          <span class="badge-duration">04:10</span>
+          <div class="play-btn-sm">
+            <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="category-pill">سينمائي وتراث</span>
+            <span class="views-count">31.7K مشاهدة</span>
+          </div>
+          <h3>حيث يلتقي الشموخ بالخفة — سينمائي للخيل</h3>
+          <div class="card-footer">
+            <div class="creator-mini">
+              <div class="creator-mini-avatar">أ</div>
+              <span>أيوب كبور</span>
+            </div>
+            <span class="city-tag">الرياض</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- بطاقة 4 -->
+      <article class="video-card" data-cat="drone" data-title="سواحل البحر الأحمر من السماء" data-creator="فهد الدوسري" onclick="openVideoModal('سواحل البحر الأحمر من السماء', 'فهد الدوسري — ينبع', 'جولة جوية ساحرة فوق الشعب المرجانية والجزر البكر بالبحر الأحمر باستخدام أحدث طائرات FPV والدرون السريع.')">
+        <div class="card-thumb">
+          <div class="card-thumb-bg" style="background: linear-gradient(135deg, rgba(52,157,215,.45), rgba(15,22,32,.9));"></div>
+          <span class="badge-duration">02:50</span>
+          <div class="play-btn-sm">
+            <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="category-pill">تصوير جوي (درون)</span>
+            <span class="views-count">15.9K مشاهدة</span>
+          </div>
+          <h3>سواحل البحر الأحمر من السماء</h3>
+          <div class="card-footer">
+            <div class="creator-mini">
+              <div class="creator-mini-avatar">ف</div>
+              <span>فهد الدوسري</span>
+            </div>
+            <span class="city-tag">ينبع</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- بطاقة 5 -->
+      <article class="video-card" data-cat="commercial" data-title="إعلان عطر الروائع الفاخر" data-creator="سارة المطيري" onclick="openVideoModal('إعلان عطر الروائع الفاخر', 'سارة المطيري — الرياض', 'تصوير إعلاني عالي السرعة لقطرات العطر وتطاير الزجاجات مع إضاءة ستوديو متزامنة وعزل فائق.')">
+        <div class="card-thumb">
+          <div class="card-thumb-bg" style="background: linear-gradient(135deg, rgba(237,229,24,.25), rgba(15,22,32,.9));"></div>
+          <span class="badge-duration">00:45</span>
+          <div class="play-btn-sm">
+            <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="category-pill">إعلانات تجارية</span>
+            <span class="views-count">39.2K مشاهدة</span>
+          </div>
+          <h3>إعلان عطر الروائع الفاخر</h3>
+          <div class="card-footer">
+            <div class="creator-mini">
+              <div class="creator-mini-avatar">س</div>
+              <span>سارة المطيري</span>
+            </div>
+            <span class="city-tag">الرياض</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- بطاقة 6 -->
+      <article class="video-card" data-cat="cinematic" data-title="وثائقي قصير: عبق التراث في الدرعية" data-creator="محمد الشمري" onclick="openVideoModal('وثائقي قصير: عبق التراث في الدرعية', 'محمد الشمري — الدرعية', 'رحلة عبر أزقة حي الطريف التاريخي ولقاءات مع الحرفيين القدامى بتدرج لوني سينمائي دافئ يحاكي طين نجد الأصيل.')">
+        <div class="card-thumb">
+          <div class="card-thumb-bg" style="background: linear-gradient(135deg, rgba(175,100,50,.35), rgba(15,22,32,.9));"></div>
+          <span class="badge-duration">05:18</span>
+          <div class="play-btn-sm">
+            <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta-top">
+            <span class="category-pill">سينمائي وتراث</span>
+            <span class="views-count">22.6K مشاهدة</span>
+          </div>
+          <h3>وثائقي قصير: عبق التراث في الدرعية</h3>
+          <div class="card-footer">
+            <div class="creator-mini">
+              <div class="creator-mini-avatar">م</div>
+              <span>محمد الشمري</span>
+            </div>
+            <span class="city-tag">الدرعية</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- مشغل الفيديو المنبثق (Modal) -->
+  <div id="videoModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-screen">
+        <div class="modal-screen-pulse">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span style="color:#A0AEC0;margin-top:14px;font-size:13px">معاينة مشغل الفيديو بجودة عالية</span>
+      </div>
+      <div class="modal-info">
+        <div>
+          <h3 id="modalVideoTitle">عنوان الفيديو</h3>
+          <p id="modalVideoMeta">المصور · المدينة</p>
+          <p id="modalVideoDesc" style="margin-top:8px;line-height:1.6;font-size:13.5px;color:#CBD5E0"></p>
+        </div>
+        <button class="close-modal-btn" type="button" aria-label="إغلاق" onclick="closeVideoModal()">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>© TAKNIKAT. جميع الحقوق محفوظة — منصة المهارات والإنتاج البصري</footer>
+
+  <script src="../navigation.js"></script>
+  <script>
+    // إخفاء شاشة اللودينج تلقائياً
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('taknikatSplash');
+        if (splash) splash.classList.add('loaded');
+      }, 700);
+    });
+
+    // فلترة الفيديوهات بالضغط على الأزرار
+    const filterButtons = document.querySelectorAll('.filters .filter');
+    const videoCards = document.querySelectorAll('#videoCardsGrid .video-card');
+    const heroCard = document.querySelector('.featured-hero');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cat = btn.getAttribute('data-cat');
+        videoCards.forEach(card => {
+          if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (heroCard) {
+          heroCard.style.display = (cat === 'all' || heroCard.getAttribute('data-cat') === cat) ? 'grid' : 'none';
+        }
+      });
+    });
+
+    // البحث المباشر
+    const searchInput = document.getElementById('videoSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase().trim();
+        videoCards.forEach(card => {
+          const title = (card.getAttribute('data-title') || '').toLowerCase();
+          const creator = (card.getAttribute('data-creator') || '').toLowerCase();
+          if (!val || title.includes(val) || creator.includes(val)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // فتح وإغلاق النافذة المنبثقة للفيديو
+    const modal = document.getElementById('videoModal');
+    function openVideoModal(title, meta, desc) {
+      document.getElementById('modalVideoTitle').textContent = title;
+      document.getElementById('modalVideoMeta').textContent = meta;
+      document.getElementById('modalVideoDesc').textContent = desc || '';
+      modal.classList.add('open');
+    }
+    function closeVideoModal() {
+      modal.classList.remove('open');
+    }
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeVideoModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeVideoModal();
+    });
+  </script>
+<script src="modern-theme.js"></script>
+</body>
+</html>

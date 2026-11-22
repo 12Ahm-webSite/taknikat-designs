@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!--
+ ملف: 02-photographer-profile.html
+ الصفحة: صفحة المصور الشخصية (موقع شخصي لكل مصور)
+ النوع: صفحة موقع (عرض 1440 ومتجاوبة مع الجوال)
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - الغلاف = صورة «المنشور الرئيسي» للمصور.
+   - أيقونة (i) بجانب الاسم تفتح نافذة المعلومات: العنوان، النقاط، تاريخ الانضمام، رقم العضوية، البريد، المهارات، صفحات التواصل. تُغلق بزر الإغلاق أو بالضغط خارجها أو بزر Esc.
+   - التبويبات بصيغة المصور (ألبوماتي، خدماتي…) لتمييزها عن قائمة تكنيكات العامة، وتبقى ثابتة عند التمرير.
+   - المعرض: كل صورة بنسبتها الأصلية بلا قص؛ تصفية الأعمال حسب الألبوم.
+   - أي قسم ليس فيه محتوى يُخفى مع تبويبه.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>ياسين المرهون — المرحلة الأولى | تكنيكات</title>
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style>  <link rel="stylesheet" href="modern-theme.css">
+</head>
+<body>
+<div dir="rtl" style="width: 100%; min-height: 100vh; background: #FFFFFF; color: #1B2533; font-family: var(--font-main); font-size: 16px; line-height: 1.7">
+
+<div style="background: #349DD7">
+<div style="max-width: 1280px; margin: 0 auto; padding: 8px 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; color: #FFFFFF; font-size: 14px">
+<a href="#" style="color: #FFFFFF; display: inline-flex">
+<img alt="تكنيكات" src="../assets/logo-on-blue.png" style="height: 36px; width: auto; display: block"/>
+</a>
+<div style="display: flex; flex-wrap: wrap; gap: 18px; font-weight: 500">
+<a href="#" style="color: #FFFFFF">الرئيسية</a>
+<a href="#" style="color: #FFFFFF">الخدمات</a>
+<a href="#" style="color: #FFFFFF">المنتجات</a>
+<a href="#" style="color: #FFFFFF">الفعاليات</a>
+</div>
+</div>
+</div>
+
+<!-- رأس: ياسين المرهون --><header class="tkn-main-header">
+  <nav class="tkn-nav" aria-label="القائمة الرئيسية">
+    <a class="tkn-logo" href="01-home.html"><img alt="تكنيكات" src="../assets/logo-on-blue.png"/></a>
+    <div class="tkn-nav-links">
+      <a href="01-home.html">الرئيسية</a>
+      <a href="09-articles.html">المقالات</a>
+      <a href="10-videos.html">الفيديوهات</a>
+      <a href="03-services.html">الخدمات</a>
+      <a href="04-products.html">المنتجات</a>
+      <a href="05-events.html">الفعاليات</a>
+      <a href="01-home.html#about">من نحن</a>
+      <a href="01-home.html#contact">اتصل بنا</a>
+    </div>
+    <a class="tkn-auth-btn" href="01-home.html">تسجيل الدخول</a>
+  </nav>
+</header>
+
+<!-- قائمة تنقل: أقسام الصفحة --><nav aria-label="أقسام الصفحة" style="position: sticky; top: 0; z-index: 5; background: #FFFFFF; border-bottom: 1px solid #E6E9EF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 4px; overflow-x: auto">
+<a href="#albums" style="padding: 15px 14px 12px; color: #1F7CB6; font-weight: 700; border-bottom: 3px solid #349DD7">ألبوماتي</a>
+<a href="#services" style="padding: 15px 14px 12px; color: #4A5568; font-weight: 500; border-bottom: 3px solid transparent">خدماتي</a>
+<a href="#products" style="padding: 15px 14px 12px; color: #4A5568; font-weight: 500; border-bottom: 3px solid transparent">منتجاتي</a>
+<a href="#videos" style="padding: 15px 14px 12px; color: #4A5568; font-weight: 500; border-bottom: 3px solid transparent">فيديوهاتي</a>
+<a href="#articles" style="padding: 15px 14px 12px; color: #4A5568; font-weight: 500; border-bottom: 3px solid transparent">مقالاتي</a>
+<a href="#events" style="padding: 15px 14px 12px; color: #4A5568; font-weight: 500; border-bottom: 3px solid transparent">فعالياتي</a>
+<a href="#posts" style="padding: 15px 14px 12px; color: #4A5568; font-weight: 500; border-bottom: 3px solid transparent">مشاركاتي</a>
+</div>
+</nav>
+
+<!-- قسم: كل أعمالي المنتجات الفعاليات البورتريه مربعة 1:1 ط… --><section id="albums" style="max-width: 1280px; margin: 0 auto; padding: 24px 24px 8px">
+<div aria-label="الألبومات" role="group" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px">
+<button style="padding: 8px 16px; border-radius: 999px; font-size: 14px; cursor: pointer; font-weight: 600; background: #1F7CB6; color: #FFFFFF; border: 1px solid #1F7CB6" type="button">كل أعمالي</button>
+<button style="padding: 8px 16px; border-radius: 999px; font-size: 14px; cursor: pointer; font-weight: 600; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">المنتجات</button>
+<button style="padding: 8px 16px; border-radius: 999px; font-size: 14px; cursor: pointer; font-weight: 600; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">الفعاليات</button>
+<button style="padding: 8px 16px; border-radius: 999px; font-size: 14px; cursor: pointer; font-weight: 600; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">البورتريه</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 6px">
+<div style="flex: 2.1434 1 0%; aspect-ratio: 2.1434; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<img alt="ساعة Clasico" src="../assets/watch.jpg" style="width: 100%; height: 100%; object-fit: contain; display: block"/>
+</div>
+<div style="flex: 1.0000 1 0%; aspect-ratio: 1.0000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                مربعة 1:1
+              </div>
+</div>
+</div>
+<div style="display: flex; gap: 6px">
+<div style="flex: 0.8000 1 0%; aspect-ratio: 0.8000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                طولية 4:5
+              </div>
+</div>
+<div style="flex: 1.5000 1 0%; aspect-ratio: 1.5000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                أفقية 3:2
+              </div>
+</div>
+<div style="flex: 0.6667 1 0%; aspect-ratio: 0.6667; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                طولية 2:3
+              </div>
+</div>
+</div>
+<div style="display: flex; gap: 6px">
+<div style="flex: 1.0000 1 0%; aspect-ratio: 1.0000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                مربعة 1:1
+              </div>
+</div>
+<div style="flex: 1.7778 1 0%; aspect-ratio: 1.7778; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                أفقية 16:9
+              </div>
+</div>
+</div>
+<div style="display: flex; gap: 6px">
+<div style="flex: 0.8000 1 0%; aspect-ratio: 0.8000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                طولية 4:5
+              </div>
+</div>
+<div style="flex: 1.5000 1 0%; aspect-ratio: 1.5000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                أفقية 3:2
+              </div>
+</div>
+<div style="flex: 1.0000 1 0%; aspect-ratio: 1.0000; min-width: 0; overflow: hidden; background: #F1F2F6; border-radius: 6px;">
+<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; color: #5A6577; font-size: 14px; font-weight: 500">
+<svg aria-hidden="true" fill="none" height="28" stroke="#9AA6B6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" width="28"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="10" r="2"></circle><path d="m21 16-5-5-9 8"></path></svg>
+                مربعة 1:1
+              </div>
+</div>
+</div>
+</div>
+<p style="margin: 12px 0 0; font-size: 13px; color: #5A6577">كل صورة تُعرض بمقاسها الأصلي: الخانة تأخذ نسبة الصورة (مربعة، أفقية، طولية)، والصفوف تتساوى في الارتفاع، ولا يُقص شيء.</p>
+</section>
+
+<!-- قسم: خدماتي --><section id="services" style="background: #F1F2F6; margin-top: 40px">
+<div style="max-width: 1280px; margin: 0 auto; padding: 48px 24px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 style="margin: 0; font-size: 28px; font-weight: 700">خدماتي</h2>
+</div>
+<a href="#" style="font-weight: 600">شاهد الكل</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+<!-- بطاقة: تصوير المنتجات --><article style="background: #FFFFFF; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+<div style="aspect-ratio: 3 / 2; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة الخدمة]</div>
+<div style="padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700">تصوير المنتجات</h3>
+<p style="margin: 0; color: #5A6577; font-size: 15px">[وصف الخدمة كما في تكنيكات]</p>
+<div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px">
+<span style="font-weight: 700">[السعر] ر.س</span>
+<a href="#" style="padding: 8px 18px; border-radius: 999px; background: #1F7CB6; color: #FFFFFF; font-weight: 600; font-size: 15px">اطلب</a>
+</div>
+</div>
+</article>
+<!-- بطاقة: تصوير الفيديو والمونتاج --><article style="background: #FFFFFF; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+<div style="aspect-ratio: 3 / 2; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة الخدمة]</div>
+<div style="padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700">تصوير الفيديو والمونتاج</h3>
+<p style="margin: 0; color: #5A6577; font-size: 15px">[وصف الخدمة كما في تكنيكات]</p>
+<div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px">
+<span style="font-weight: 700">[السعر] ر.س</span>
+<a href="#" style="padding: 8px 18px; border-radius: 999px; background: #1F7CB6; color: #FFFFFF; font-weight: 600; font-size: 15px">اطلب</a>
+</div>
+</div>
+</article>
+<!-- بطاقة: معالجة الصور --><article style="background: #FFFFFF; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+<div style="aspect-ratio: 3 / 2; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة الخدمة]</div>
+<div style="padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700">معالجة الصور</h3>
+<p style="margin: 0; color: #5A6577; font-size: 15px">[وصف الخدمة كما في تكنيكات]</p>
+<div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px">
+<span style="font-weight: 700">[السعر] ر.س</span>
+<a href="#" style="padding: 8px 18px; border-radius: 999px; background: #1F7CB6; color: #FFFFFF; font-weight: 600; font-size: 15px">اطلب</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- قسم: منتجاتي --><section id="products" style="max-width: 1280px; margin: 0 auto; padding: 48px 24px 8px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 style="margin: 0; font-size: 28px; font-weight: 700">منتجاتي</h2>
+</div>
+<a href="#" style="font-weight: 600">شاهد الكل</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="aspect-ratio: 1 / 1; border-radius: 14px; background: #F1F2F6; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة المنتج]</div><div style="font-weight: 600">[اسم المنتج]</div><div style="color: #5A6577; font-size: 15px">[السعر] ر.س</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="aspect-ratio: 1 / 1; border-radius: 14px; background: #F1F2F6; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة المنتج]</div><div style="font-weight: 600">[اسم المنتج]</div><div style="color: #5A6577; font-size: 15px">[السعر] ر.س</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="aspect-ratio: 1 / 1; border-radius: 14px; background: #F1F2F6; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة المنتج]</div><div style="font-weight: 600">[اسم المنتج]</div><div style="color: #5A6577; font-size: 15px">[السعر] ر.س</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="aspect-ratio: 1 / 1; border-radius: 14px; background: #F1F2F6; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة المنتج]</div><div style="font-weight: 600">[اسم المنتج]</div><div style="color: #5A6577; font-size: 15px">[السعر] ر.س</div></div>
+</div>
+</section>
+
+<!-- قسم: فيديوهاتي --><section id="videos" style="max-width: 1280px; margin: 0 auto; padding: 48px 24px 8px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 style="margin: 0; font-size: 28px; font-weight: 700">فيديوهاتي</h2>
+</div>
+<a href="#" style="font-weight: 600">شاهد الكل</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+<div style="aspect-ratio: 16 / 9; border-radius: 14px; background: #1B2533; display: flex; align-items: center; justify-content: center"><span style="width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="22" viewbox="0 0 24 24" width="22"><path d="M8 5v14l11-7z"></path></svg></span></div>
+<div style="aspect-ratio: 16 / 9; border-radius: 14px; background: #1B2533; display: flex; align-items: center; justify-content: center"><span style="width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="22" viewbox="0 0 24 24" width="22"><path d="M8 5v14l11-7z"></path></svg></span></div>
+<div style="aspect-ratio: 16 / 9; border-radius: 14px; background: #1B2533; display: flex; align-items: center; justify-content: center"><span style="width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="22" viewbox="0 0 24 24" width="22"><path d="M8 5v14l11-7z"></path></svg></span></div>
+</div>
+</section>
+
+<!-- قسم: مقالاتي --><section id="articles" style="max-width: 1280px; margin: 0 auto; padding: 48px 24px 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px">
+<div>
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 style="margin: 0; font-size: 28px; font-weight: 700">مقالاتي</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<a href="#" style="display: flex; gap: 14px; align-items: center; padding: 12px; border-radius: 14px; background: #F1F2F6; color: #1B2533"><span style="width: 96px; aspect-ratio: 3 / 2; border-radius: 10px; background: #E3E7EE; flex: none"></span><span><span style="display: block; font-weight: 600">[عنوان المقال]</span><span style="font-size: 14px; color: #5A6577">[التاريخ]</span></span></a>
+<a href="#" style="display: flex; gap: 14px; align-items: center; padding: 12px; border-radius: 14px; background: #F1F2F6; color: #1B2533"><span style="width: 96px; aspect-ratio: 3 / 2; border-radius: 10px; background: #E3E7EE; flex: none"></span><span><span style="display: block; font-weight: 600">[عنوان المقال]</span><span style="font-size: 14px; color: #5A6577">[التاريخ]</span></span></a>
+</div>
+</div>
+<div>
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 id="events" style="margin: 0; font-size: 28px; font-weight: 700">فعالياتي</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<a href="#" style="display: flex; gap: 14px; align-items: center; padding: 12px; border-radius: 14px; background: #F1F2F6; color: #1B2533"><span style="width: 64px; height: 64px; border-radius: 12px; background: #FFFFFF; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2"><span style="font-weight: 700; font-size: 20px; color: #1F7CB6">[٠٠]</span><span style="font-size: 12px; color: #5A6577">[الشهر]</span></span><span><span style="display: block; font-weight: 600">[اسم الفعالية]</span><span style="font-size: 14px; color: #5A6577">[المكان]</span></span></a>
+<a href="#" style="display: flex; gap: 14px; align-items: center; padding: 12px; border-radius: 14px; background: #F1F2F6; color: #1B2533"><span style="width: 64px; height: 64px; border-radius: 12px; background: #FFFFFF; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2"><span style="font-weight: 700; font-size: 20px; color: #1F7CB6">[٠٠]</span><span style="font-size: 12px; color: #5A6577">[الشهر]</span></span><span><span style="display: block; font-weight: 600">[اسم الفعالية]</span><span style="font-size: 14px; color: #5A6577">[المكان]</span></span></a>
+</div>
+</div>
+</section>
+
+<!-- قسم: مشاركاتي --><section id="posts" style="max-width: 1280px; margin: 0 auto; padding: 48px 24px 8px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 style="margin: 0; font-size: 28px; font-weight: 700">مشاركاتي</h2>
+</div>
+<a href="#" style="font-weight: 600">شاهد الكل</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+<!-- بطاقة: القطيف · [الوقت] تجربة سريعة في تصوير الساعات… --><article style="border: 1px solid #E6E9EF; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; color: #5A6577">القطيف · [الوقت]</div>
+<p style="margin: 0">تجربة سريعة في تصوير الساعات</p>
+<img alt="تصوير ساعة Clasico" src="../assets/watch.jpg" style="width: 100%; aspect-ratio: 1046 / 488; object-fit: contain; border-radius: 10px; background: #F1F2F6; display: block"/>
+</article>
+<!-- بطاقة: [المكان] · [الوقت] [نص المشاركة]… --><article style="border: 1px solid #E6E9EF; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; color: #5A6577">[المكان] · [الوقت]</div>
+<p style="margin: 0">[نص المشاركة]</p>
+<div style="aspect-ratio: 4 / 3; border-radius: 10px; background: #F1F2F6"></div>
+</article>
+</div>
+</section>
+<!-- التذييل: taknikat.com/yassin صفحة شخصية على تكنيكات… --><footer style="border-top: 1px solid #E6E9EF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 14px; color: #5A6577">
+<span>taknikat.com/yassin</span>
+<span>صفحة شخصية على <a href="#" style="font-weight: 700">تكنيكات</a></span>
+</div>
+</footer>
+
+</div>
+<script src="../navigation.js"></script>
+<script src="modern-theme.js"></script>
+</body></html>

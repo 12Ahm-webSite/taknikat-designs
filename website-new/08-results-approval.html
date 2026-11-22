@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--
+ ملف: 08-results-approval.html
+ الصفحة: لوحة المنظّم — اعتماد النتائج
+ النوع: صفحة موقع (عرض 1440 ومتجاوبة مع الجوال)
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - نوع النتائج: «مسابقة بمراكز» أو «مشاركات شرفية».
+   - الترتيب المبدئي: درجات المحكمين والمتوسط. مركز واحد لكل مصور — عمله الثاني يظهر باهتًا ولا يدخل المراكز.
+   - صندوق التعادل الأحمر: يختار المنظّم الفائز وطريقة الحسم (تصويت اللجنة / قرار المنظّم مع سبب إلزامي يُنشر).
+   - زر «اعتماد ونشر» معطّل حتى يُحسم كل تعادل؛ بعد النشر تُقفل النتائج.
+   - المنطق كاملًا في logic/results-ranking.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>اعتماد النتائج — الحركة | تكنيكات</title>
+<style>
+
+body{margin:0;background:#F1F2F6}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style>  <link rel="stylesheet" href="modern-theme.css">
+</head>
+<body>
+<div dir="rtl" style="width: 100%; min-height: 100vh; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 16px; line-height: 1.7">
+<!-- رأس: الرئيسية المقالات الخدمات المنتجات الفيديوهات الفع… --><header class="tkn-main-header">
+  <nav class="tkn-nav" aria-label="القائمة الرئيسية">
+    <a class="tkn-logo" href="01-home.html"><img alt="تكنيكات" src="../assets/logo-on-blue.png"/></a>
+    <div class="tkn-nav-links">
+      <a href="01-home.html">الرئيسية</a>
+      <a href="09-articles.html">المقالات</a>
+      <a href="10-videos.html">الفيديوهات</a>
+      <a href="03-services.html">الخدمات</a>
+      <a href="04-products.html">المنتجات</a>
+      <a href="05-events.html">الفعاليات</a>
+      <a href="01-home.html#about">من نحن</a>
+      <a href="01-home.html#contact">اتصل بنا</a>
+    </div>
+    <a class="tkn-auth-btn" href="01-home.html">تسجيل الدخول</a>
+  </nav>
+</header>
+<!-- قسم: اعتماد النتائج --><section style="max-width: 1100px; margin: 0 auto; padding: 28px 24px 0">
+<div style="font-size: 14px; color: #5A6577">لوحة المنظّم · الحركة</div>
+<h1 style="margin: 2px 0 0; font-size: 34px; font-weight: 700">اعتماد النتائج</h1>
+<p style="margin: 4px 0 0; color: #5A6577">راجع الترتيب المبدئي، واحسم التعادلات إن وجدت، ثم اعتمد وانشر.</p>
+</section>
+
+<!-- قسم: نوع النتائج يُحدَّد عند إنشاء الفعالية ويظهر في ال… --><section style="max-width: 1100px; margin: 0 auto; padding: 24px 24px 0">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 20px 22px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<div><div style="font-weight: 700">نوع النتائج</div><div style="font-size: 14px; color: #5A6577">يُحدَّد عند إنشاء الفعالية ويظهر في الشروط</div></div>
+<div aria-label="نوع النتائج" role="group" style="display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: #F1F2F6">
+<button style="padding: 8px 18px; border-radius: 999px; border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; background: #FFFFFF; color: #1F7CB6; box-shadow: 0 1px 4px rgba(27,37,51,0.12)" type="button">مسابقة بمراكز</button>
+<button style="padding: 8px 18px; border-radius: 999px; border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; background: transparent; color: #4A5568" type="button">مشاركات شرفية</button>
+</div>
+</div>
+</section>
+
+<!-- قسم: الترتيب المبدئي محكّمان · متوسط الدرجات من 10 · أف… --><section style="max-width: 1100px; margin: 0 auto; padding: 20px 24px 0">
+<div style="background: #FFFFFF; border-radius: 18px; overflow: hidden">
+<div style="padding: 18px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; border-bottom: 1px solid #EEF0F4">
+<div style="font-weight: 700; font-size: 18px">الترتيب المبدئي</div>
+<div style="font-size: 13px; color: #5A6577">محكّمان · متوسط الدرجات من 10 · أفضل عمل لكل مصور</div>
+</div>
+<div aria-label="الترتيب المبدئي" role="table">
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; padding: 10px 22px; font-size: 13px; color: #5A6577; background: #F7F8FA">
+<span role="columnheader">المركز</span><span role="columnheader">العمل</span><span role="columnheader">المصور · رقم المشاركة</span><span role="columnheader">درجات المحكمين</span><span role="columnheader">المتوسط</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFFFFF">
+<span role="cell" style="font-weight: 700; color: #1F7CB6; font-size: 18px">1</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 1.500; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور أ</span><span style="font-size: 13px; color: #5A6577">#7898 </span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">10 · 10</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">10.0</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFFFFF; opacity: 0.55">
+<span role="cell" style="font-weight: 700; color: #5A6577">—</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 1.778; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور أ</span><span style="font-size: 13px; color: #5A6577">#7897 · عمل ثانٍ لنفس المصور — لا يدخل المراكز</span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">10 · 10</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">10.0</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFFFFF">
+<span role="cell" style="font-weight: 700; color: #1F7CB6; font-size: 18px">2</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 0.800; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور ب</span><span style="font-size: 13px; color: #5A6577">#7896 </span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">9 · 9</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">9.0</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFF5F5">
+<span role="cell" style="font-weight: 700; color: #C4262E">3 ؟</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 0.800; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور ج</span><span style="font-size: 13px; color: #5A6577">#7900 · تعادل</span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">8 · 9</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">8.5</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFF5F5">
+<span role="cell" style="font-weight: 700; color: #C4262E">3 ؟</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 1.330; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور د</span><span style="font-size: 13px; color: #5A6577">#7895 · تعادل</span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">9 · 8</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">8.5</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFFFFF">
+<span role="cell" style="font-weight: 700; color: #5A6577">5</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 1.500; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور هـ</span><span style="font-size: 13px; color: #5A6577">#7901 </span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">7 · 7</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">7.0</span>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 90px 72px minmax(0, 1fr) 120px 110px; gap: 12px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF0F4; background: #FFFFFF">
+<span role="cell" style="font-weight: 700; color: #5A6577">6</span>
+<span role="cell" style="display: block; width: 56px; aspect-ratio: 1.000; max-height: 56px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span role="cell" style="min-width: 0; line-height: 1.4"><span style="display: block; font-weight: 600">المصور و</span><span style="font-size: 13px; color: #5A6577">#7892 </span></span>
+<span role="cell" style="font-size: 14px; color: #4A5568">6 · 6</span>
+<span role="cell" style="font-weight: 700; font-size: 17px">6.0</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- قسم: تعادل على المركز الثالث المتوسط متساوٍ (8.5)، وكلا… --><section style="max-width: 1100px; margin: 0 auto; padding: 20px 24px 0">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 22px; border: 2px solid #E5484D; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<span style="width: 36px; height: 36px; border-radius: 50%; background: #FDECEC; display: flex; align-items: center; justify-content: center; flex: none"><svg aria-hidden="true" fill="none" height="18" stroke="#C4262E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="18"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg></span>
+<div><div style="font-weight: 700; font-size: 18px">تعادل على المركز الثالث</div><div style="font-size: 14px; color: #5A6577">المتوسط متساوٍ (8.5)، وكلا العملين حصل على درجة 9 من محكّم واحد. القاعدتان 1 و2 لم تحسما التعادل.</div></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px">
+<button aria-pressed="false" style="display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 14px; cursor: pointer; font-family: inherit; font-size: 15px; color: #1B2533; background: #FFFFFF; border: 2px solid #E6E9EF" type="button">
+<span style="display: block; width: 64px; aspect-ratio: 0.800; max-height: 64px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span style="text-align: right; line-height: 1.5"><span style="display: block; font-weight: 700">المصور ج</span><span style="font-size: 13px; color: #5A6577">#7900 · المحكمان: 8 و 9 · المتوسط 8.5</span><span style="display: block; font-size: 13px; font-weight: 700; color: #1F7CB6">اختر كمركز ثالث</span></span>
+</button>
+<button aria-pressed="false" style="display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 14px; cursor: pointer; font-family: inherit; font-size: 15px; color: #1B2533; background: #FFFFFF; border: 2px solid #E6E9EF" type="button">
+<span style="display: block; width: 64px; aspect-ratio: 1.330; max-height: 64px; border-radius: 8px; background: #E3E7EE; flex: none"></span>
+<span style="text-align: right; line-height: 1.5"><span style="display: block; font-weight: 700">المصور د</span><span style="font-size: 13px; color: #5A6577">#7895 · المحكمان: 9 و 8 · المتوسط 8.5</span><span style="display: block; font-size: 13px; font-weight: 700; color: #1F7CB6">اختر كمركز ثالث</span></span>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 600; font-size: 15px">طريقة الحسم</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button style="padding: 9px 18px; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; background: #1F7CB6; color: #FFFFFF; border: 1px solid #1F7CB6" type="button">تصويت لجنة التحكيم</button>
+<button style="padding: 9px 18px; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">قرار المنظّم</button>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- قسم: بعد النشر تُقفل النتائج، وتظهر للمشاركين مع تاريخ … --><section style="max-width: 1100px; margin: 0 auto; padding: 20px 24px 72px">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 20px 22px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between">
+<div style="font-size: 14px; color: #4A5568; max-width: 620px">بعد النشر تُقفل النتائج، وتظهر للمشاركين مع تاريخ الاعتماد وطريقة الحسم. أي تعديل لاحق يظهر كملاحظة عامة.</div>
+<button disabled="" style="padding: 13px 28px; border-radius: 999px; border: 0; font-family: inherit; font-weight: 700; font-size: 15px; background: #D5DAE2; color: #5A6577; cursor: not-allowed" type="button">اعتماد ونشر النتائج</button>
+</div>
+</section>
+<!-- التذييل: منصة المهارات والخدمات والمنتجات التقنية الخدمات ا… --><footer style="background: #FFFFFF; border-top: 1px solid #E6E9EF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 32px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; font-size: 14px; color: #5A6577">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<img alt="تكنيكات" src="../assets/logo.png" style="height: 48px; width: auto; display: block"/>
+<span>منصة المهارات والخدمات والمنتجات التقنية</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px"><a href="#">الخدمات</a><a href="#">المنتجات</a><a href="#">الفيديوهات</a><a href="#">من نحن</a><a href="#">اتصل بنا</a></div>
+<div style="display: flex; flex-direction: column; gap: 4px; direction: ltr; text-align: right"><span>00966545150962</span><span>taknikat@email.com</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<span>حمّل تطبيق تكنيكات</span>
+<div style="display: flex; gap: 8px"><a href="#" style="padding: 8px 14px; border-radius: 10px; background: #1B2533; color: #FFFFFF; font-weight: 600; font-size: 13px">App Store</a><a href="#" style="padding: 8px 14px; border-radius: 10px; background: #1B2533; color: #FFFFFF; font-weight: 600; font-size: 13px">Google Play</a></div>
+</div>
+</div>
+<div style="border-top: 1px solid #EEF0F4; padding: 14px 24px; text-align: center; font-size: 13px; color: #5A6577">© TAKNIKAT. جميع الحقوق محفوظة</div>
+</footer>
+</div>
+<script src="../navigation.js"></script>
+<script src="modern-theme.js"></script>
+</body></html>

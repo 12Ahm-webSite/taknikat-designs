@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>طلب خدمة — تصوير منتجات تجاري | تكنيكات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #349DD7;
+      --blue-strong: #1F7CB6;
+      --pink: #CE107E;
+      --yellow: #EDE518;
+      --bg: #F1F2F6;
+      --ink: #1B2533;
+      --muted: #5A6577;
+      --line: #E6E9EF;
+      --surface: #FFFFFF;
+      --font-main: 'Readex Pro', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue-strong); text-decoration: none; }
+
+    /* ====== Taknikat Aperture Splash Loader ====== */
+    #taknikatSplash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #1B2533;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      transition: opacity .55s cubic-bezier(.16,1,.3,1), visibility .55s;
+    }
+    #taknikatSplash.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-lens {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .aperture-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 3px solid rgba(52, 157, 215, 0.25);
+      border-top-color: var(--blue);
+      border-bottom-color: var(--pink);
+      animation: spinRing 2.4s linear infinite;
+    }
+    .aperture-blades {
+      width: 78px;
+      height: 78px;
+      animation: aperturePulse 1.8s ease-in-out infinite alternate;
+    }
+    .splash-logo-text {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .splash-logo-text span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pink);
+      animation: pulseDot 1.2s infinite;
+    }
+    .splash-bar {
+      width: 140px;
+      height: 3px;
+      background: rgba(255,255,255,.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .splash-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--pink));
+      border-radius: 999px;
+      animation: fillBar 1.2s ease forwards;
+    }
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes aperturePulse {
+      0% { transform: scale(.85) rotate(0deg); opacity: .7; }
+      100% { transform: scale(1.08) rotate(35deg); opacity: 1; }
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: .5; }
+      50% { transform: scale(1.6); opacity: 1; }
+    }
+    @keyframes fillBar {
+      0% { width: 0%; }
+      70% { width: 85%; }
+      100% { width: 100%; }
+    }
+
+    /* ====== Header (Modern Glassmorphism) ====== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(52, 157, 215, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(27,37,51,.08);
+    }
+    nav {
+      max-width: 1280px;
+      margin: auto;
+      min-height: 74px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      color: #FFFFFF;
+      border-radius: 999px;
+      transition: background .2s ease;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.18);
+    }
+    .nav-links .active {
+      font-weight: 700;
+      background: rgba(255,255,255,0.24);
+      border-bottom: 2px solid #FFFFFF;
+    }
+    .auth-btn {
+      padding: 9px 24px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--blue-strong);
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 3px 10px rgba(27,37,51,.1);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(27,37,51,.15);
+    }
+
+    /* ====== Main Layout ====== */
+    main {
+      max-width: 1280px;
+      margin: auto;
+      padding: 28px 24px 80px;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--blue-strong); }
+    .breadcrumb span { color: #CBD5E0; }
+
+    .service-container {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ====== Left Column (Details & Form) ====== */
+    .details-box {
+      background: #FFFFFF;
+      border-radius: 22px;
+      padding: 32px;
+      box-shadow: 0 4px 18px rgba(27,37,51,.06);
+      border: 1px solid var(--line);
+    }
+    .service-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      background: rgba(52, 157, 215, 0.12);
+      color: var(--blue-strong);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+    .service-meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .rating-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 700;
+      color: #D97706;
+    }
+
+    /* Preview Gallery */
+    .gallery-preview {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .gallery-main {
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, #1C2736, #0E1622);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      position: relative;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-side {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+    }
+    .gallery-item {
+      background: #E2E8F0;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 20px;
+      border-radius: 2px;
+      background: var(--blue-strong);
+    }
+    .service-desc {
+      color: #374151;
+      line-height: 1.85;
+      font-size: 15.5px;
+    }
+
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0 32px;
+    }
+    .deliverable-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .deliverable-item svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--blue-strong);
+      flex: none;
+    }
+
+    /* Order Form */
+    .order-form-box {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 2px dashed var(--line);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #D5DAE2;
+      border-radius: 12px;
+      font: inherit;
+      font-size: 14.5px;
+      background: #FFFFFF;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .form-control:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(52, 157, 215, 0.15);
+    }
+    textarea.form-control {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* Extras checkboxes */
+    .extras-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 16px 0 24px;
+    }
+    .extra-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .extra-item:hover {
+      border-color: var(--blue);
+    }
+    .extra-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14.5px;
+      font-weight: 500;
+    }
+    .extra-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue-strong);
+    }
+    .extra-price {
+      font-weight: 700;
+      color: var(--blue-strong);
+      font-size: 14.5px;
+    }
+
+    /* ====== Right Column (Sticky Pricing Card) ====== */
+    .sidebar-sticky {
+      position: sticky;
+      top: 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .price-card {
+      background: #FFFFFF;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 6px 24px rgba(27,37,51,.08);
+      border: 1px solid var(--line);
+    }
+    .price-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .price-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .price-currency {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-right: 4px;
+    }
+    .price-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .price-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .price-features svg {
+      width: 18px;
+      height: 18px;
+      stroke: #10B981;
+      flex: none;
+    }
+
+    .submit-order-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      background: var(--blue-strong);
+      color: #FFFFFF;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(31,124,182,.3);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .submit-order-btn:hover {
+      background: #176B9E;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(31,124,182,.4);
+    }
+    .guarantee-note {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Provider Card */
+    .provider-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 4px 16px rgba(27,37,51,.05);
+      border: 1px solid var(--line);
+    }
+    .provider-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .provider-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid var(--pink);
+      object-fit: cover;
+    }
+    .provider-info h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+    }
+    .provider-info span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .provider-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-secondary {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #D5DAE2;
+      background: #FFFFFF;
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue-strong);
+    }
+
+    /* ====== Success Modal ====== */
+    #orderSuccessModal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(15, 22, 32, 0.85);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .3s ease;
+    }
+    #orderSuccessModal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .success-box {
+      width: min(500px, 100%);
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      transform: scale(.9);
+      transition: transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    #orderSuccessModal.open .success-box {
+      transform: scale(1);
+    }
+    .success-icon-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.12);
+      color: #10B981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+    .success-box h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+    .success-box p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+    .order-number-badge {
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: #F1F3F7;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 24px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      background: #FFFFFF;
+      font-size: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .service-container { grid-template-columns: 1fr; }
+      .sidebar-sticky { position: static; }
+    }
+  </style>
+  <link rel="stylesheet" href="modern-theme.css">
+</head>
+<body>
+
+  <!-- شاشة اللودينج بانميشن عدسة تكنيكات -->
+  <div id="taknikatSplash">
+    <div class="splash-lens">
+      <div class="aperture-ring"></div>
+      <svg class="aperture-blades" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="44" stroke="#349DD7" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M50 16 L65 50 L50 42 Z" fill="#349DD7" opacity="0.8"/>
+        <path d="M78 35 L58 65 L50 54 Z" fill="#CE107E" opacity="0.85"/>
+        <path d="M78 65 L42 68 L48 56 Z" fill="#EDE518" opacity="0.9"/>
+        <path d="M50 84 L35 50 L50 58 Z" fill="#349DD7" opacity="0.8"/>
+        <path d="M22 65 L42 35 L50 46 Z" fill="#CE107E" opacity="0.85"/>
+        <path d="M22 35 L58 32 L52 44 Z" fill="#EDE518" opacity="0.9"/>
+        <circle cx="50" cy="50" r="14" fill="#1B2533" stroke="#FFFFFF" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <div class="splash-logo-text">
+      <span></span>
+      <span>تكنيكات</span>
+      <span style="background:var(--blue)"></span>
+    </div>
+    <div class="splash-bar">
+      <div class="splash-bar-fill"></div>
+    </div>
+  </div>
+
+  <header class="tkn-main-header">
+  <nav class="tkn-nav" aria-label="القائمة الرئيسية">
+    <a class="tkn-logo" href="01-home.html"><img alt="تكنيكات" src="../assets/logo-on-blue.png"/></a>
+    <div class="tkn-nav-links">
+      <a href="01-home.html">الرئيسية</a>
+      <a href="09-articles.html">المقالات</a>
+      <a href="10-videos.html">الفيديوهات</a>
+      <a href="03-services.html" class="active">الخدمات</a>
+      <a href="04-products.html">المنتجات</a>
+      <a href="05-events.html">الفعاليات</a>
+      <a href="01-home.html#about">من نحن</a>
+      <a href="01-home.html#contact">اتصل بنا</a>
+    </div>
+    <a class="tkn-auth-btn" href="01-home.html">تسجيل الدخول</a>
+  </nav>
+</header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="01-home.html">الرئيسية</a>
+      <span>/</span>
+      <a href="03-services.html">دليل الخدمات</a>
+      <span>/</span>
+      <strong>طلب خدمة تصوير منتجات تجارية</strong>
+    </div>
+
+    <div class="service-container">
+      <!-- العمود الأيمن: التفاصيل ونموذج الطلب -->
+      <div class="details-box">
+        <span class="service-badge">تصوير تجاري ودعاية</span>
+        <h1 id="serviceName">جلسة تصوير منتجات احترافية وعزل خلفيات</h1>
+
+        <div class="service-meta-bar">
+          <div class="rating-pill">
+            <svg fill="currentColor" height="16" viewBox="0 0 24 24" width="16"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            4.9 (48 تقييمًا)
+          </div>
+          <span>•</span>
+          <span>الرياض وجلسات شحن المنتجات من جميع المناطق</span>
+          <span>•</span>
+          <span>مقدم الخدمة: <strong>ياسين المرهون</strong></span>
+        </div>
+
+        <!-- معرض صور عينات الخدمة -->
+        <div class="gallery-preview">
+          <div class="gallery-main">
+            <img alt="معاينة المنتج" src="../assets/watch.jpg"/>
+          </div>
+          <div class="gallery-side">
+            <div class="gallery-item">زاوية تفاصيل الماكرو</div>
+            <div class="gallery-item">خلفية عزل استوديو</div>
+          </div>
+        </div>
+
+        <div class="section-title">وصف ومميزات الخدمة</div>
+        <p class="service-desc">
+          جلسة تصوير احترافية للمنتجات التجارية في استوديو مجهز بأحدث وحدات الإضاءة السويسرية وعدسات الماكرو الدقيقة. نضمن لك إبراز خامات المنتج وتفاصيل الألوان الواقعية بشكل جذاب للمتاجر الإلكترونية وحملات السوشيال ميديا الإعلانية.
+        </p>
+
+        <div class="section-title">ماذا تشمل هذه الخدمة؟</div>
+        <div class="deliverables-grid">
+          <div class="deliverable-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            15 صورة معالجة بأعلى دقة 4K
+          </div>
+          <div class="deliverable-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            عزل خلفية بيضاء نقية وشفافة PNG
+          </div>
+          <div class="deliverable-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            تعديل احترافي وتصحيح ألوان دقيق
+          </div>
+          <div class="deliverable-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            حقوق استخدام تجاري كاملة بدون قيود
+          </div>
+        </div>
+
+        <!-- نموذج تقديم الطلب وتخصيص التفاصيل -->
+        <div class="order-form-box">
+          <div class="section-title">تفاصيل ومتطلبات طلبك</div>
+
+          <div class="form-group">
+            <label for="projectBrief">اشرح ما تحتاجه بدقة (نوع المنتجات، العدد، والرؤية البصرية)</label>
+            <textarea class="form-control" id="projectBrief" placeholder="مثال: تصوير 5 منتجات عطور فاخرة، أحتاج لقطات للمتجر الإلكتروني وخلفيات داكنة فخمة…"></textarea>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label for="dueDate">تاريخ التسليم المفضل</label>
+              <input class="form-control" id="dueDate" type="date"/>
+            </div>
+            <div class="form-group">
+              <label for="locationCity">المدينة أو طريقة استلام المنتجات</label>
+              <select class="form-control" id="locationCity">
+                <option value="riyadh">الرياض (تسليم مباشر للاستوديو)</option>
+                <option value="shipping">شحن المنتجات عبر سمسا / أرامكس</option>
+                <option value="onsite">حضور المصور لموقع العميل</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-title">إضافات وتطويرات الخدمة</div>
+          <div class="extras-list">
+            <label class="extra-item">
+              <div class="extra-label">
+                <input type="checkbox" id="extraFast" data-price="250" onchange="calcTotal()"/>
+                <span>تسليم سريع خلال 24 ساعة فقط (VIP Express)</span>
+              </div>
+              <span class="extra-price">+250 ر.س</span>
+            </label>
+            <label class="extra-item">
+              <div class="extra-label">
+                <input type="checkbox" id="extraRaw" data-price="150" onchange="calcTotal()"/>
+                <span>تسليم ملفات الكاميرا الخام غير المضغوطة (RAW Original)</span>
+              </div>
+              <span class="extra-price">+150 ر.س</span>
+            </label>
+            <label class="extra-item">
+              <div class="extra-label">
+                <input type="checkbox" id="extraReels" data-price="400" onchange="calcTotal()"/>
+                <span>تصوير فيديو ريلز رأسي قصير 9:16 للمنتجات مع مونتاج إعلاني</span>
+              </div>
+              <span class="extra-price">+400 ر.س</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- العمود الأيسر: بطاقة السعر والطلب الثابتة -->
+      <aside class="sidebar-sticky">
+        <div class="price-card">
+          <div class="price-header">
+            <div>
+              <span class="price-currency">ر.س</span>
+              <span class="price-value" id="totalDisplay">1,500</span>
+            </div>
+            <span style="font-size:13px;color:var(--muted)">شامل الضريبة والمعالجة</span>
+          </div>
+
+          <ul class="price-features">
+            <li>
+              <svg fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5"/></svg>
+              <span>مدة التنفيذ: <strong>3 إلى 4 أيام عمل</strong></span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5"/></svg>
+              <span>عدد التعديلات المسموحة: <strong>تعديلات غير محدودة</strong></span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2.5"/></svg>
+              <span>حماية مالية عبر وساطة تكنيكات الآمنة</span>
+            </li>
+          </ul>
+
+          <button class="submit-order-btn" type="button" onclick="submitServiceOrder()">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            إرسال طلب الخدمة الآن
+          </button>
+
+          <div class="guarantee-note">
+            <svg fill="#10B981" height="16" viewBox="0 0 24 24" width="16"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            <span>ضمان استرجاع المبلغ في حال عدم الرضا عن النتيجة</span>
+          </div>
+        </div>
+
+        <!-- بطاقة مقدم الخدمة -->
+        <div class="provider-card">
+          <div class="provider-header">
+            <img alt="ياسين المرهون" class="provider-avatar" src="../assets/avatar.jpg"/>
+            <div class="provider-info">
+              <h4>ياسين المرهون</h4>
+              <span>مصور إداري · مؤسس تكنيكات</span>
+            </div>
+          </div>
+          <div class="provider-actions">
+            <a class="btn-secondary" href="02-photographer-profile.html">عرض الملف الشخصي</a>
+            <button class="btn-secondary" type="button" onclick="alert('جاري فتح المحادثة المباشرة مع المصور ياسين المرهون')">مراسلة مباشرة</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- نافذة نجاح الطلب المنبثقة -->
+  <div id="orderSuccessModal" role="dialog" aria-modal="true">
+    <div class="success-box">
+      <div class="success-icon-wrap">
+        <svg fill="none" height="36" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="36"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>تم إرسال طلب الخدمة بنجاح!</h3>
+      <p>وصل إشعار مباشر إلى المصور وسيتم الرد عليك وتأكيد تفاصيل الموعد خلال ساعتين عبر منصة تكنيكات.</p>
+      <div class="order-number-badge">رقم الطلب: #TKN-84920</div>
+      <div>
+        <button class="submit-order-btn" style="margin-bottom:10px" type="button" onclick="window.location.href='03-services.html'">العودة لدليل الخدمات</button>
+        <button class="btn-secondary" style="width:100%;padding:12px" type="button" onclick="closeSuccessModal()">إغلاق النافذة</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>© TAKNIKAT. جميع الحقوق محفوظة — منصة المهارات والإنتاج البصري</footer>
+
+  <script src="../navigation.js"></script>
+  <script>
+    // إخفاء اللودينج
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('taknikatSplash');
+        if (splash) splash.classList.add('loaded');
+      }, 700);
+
+      // استخراج اسم وسعر الخدمة من معلمات الرابط إن وجدت
+      const params = new URLSearchParams(window.location.search);
+      const titleParam = params.get('title');
+      const priceParam = params.get('price');
+      if (titleParam) {
+        document.getElementById('serviceName').textContent = titleParam;
+      }
+      if (priceParam && !isNaN(parseInt(priceParam))) {
+        basePrice = parseInt(priceParam);
+        calcTotal();
+      }
+    });
+
+    let basePrice = 1500;
+    function calcTotal() {
+      let total = basePrice;
+      const fast = document.getElementById('extraFast');
+      const raw = document.getElementById('extraRaw');
+      const reels = document.getElementById('extraReels');
+
+      if (fast && fast.checked) total += parseInt(fast.getAttribute('data-price') || 0);
+      if (raw && raw.checked) total += parseInt(raw.getAttribute('data-price') || 0);
+      if (reels && reels.checked) total += parseInt(reels.getAttribute('data-price') || 0);
+
+      document.getElementById('totalDisplay').textContent = total.toLocaleString('en-US');
+    }
+
+    const successModal = document.getElementById('orderSuccessModal');
+    function submitServiceOrder() {
+      successModal.classList.add('open');
+    }
+    function closeSuccessModal() {
+      successModal.classList.remove('open');
+    }
+  </script>
+<script src="modern-theme.js"></script>
+</body>
+</html>
