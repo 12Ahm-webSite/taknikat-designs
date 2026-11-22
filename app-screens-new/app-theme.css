@@ -1,0 +1,650 @@
+/* =====================================================================
+   تصاميم تكنيكات — هوية وثيم تطبيق الموبايل الحديث (Flutter Mobile Blueprint)
+   Eye-Pleasing & Modern Mobile App Experience
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-main: 'Readex Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --blue: #349DD7;
+  --blue-strong: #1F7CB6;
+  --blue-soft: #EAF5FC;
+  --pink: #CE107E;
+  --pink-soft: #FCE8F3;
+  --yellow: #EDE518;
+  --gold-soft: #FBF4E4;
+  --gold-text: #7A5B0C;
+  --bg: #F1F2F6;
+  --surface: #FFFFFF;
+  --ink: #1B2533;
+  --muted: #5A6577;
+  --line: #E6E9EF;
+  --phone-bezel: #1C212A;
+  --phone-shadow: rgba(15, 22, 32, 0.22);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  font-family: var(--font-main);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: block;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+a {
+  color: var(--blue-strong);
+  text-decoration: none;
+  transition: opacity 0.15s ease, transform 0.15s var(--ease-spring);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* =====================================================================
+   شاشة الجوال (Mobile Screen Viewport)
+   ===================================================================== */
+.tkn-device {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+@keyframes deviceAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* شريط الحالة العلوي ونوتش الجزيرة التفاعلية (iOS Status Bar & Dynamic Island) */
+.tkn-status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 90;
+  pointer-events: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  user-select: none;
+}
+
+.tkn-status-bar.dark-mode {
+  color: #FFFFFF;
+}
+
+.tkn-dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 28px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 95;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: width 0.3s var(--ease-spring), height 0.3s var(--ease-spring), box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tkn-dynamic-island:hover {
+  width: 145px;
+  box-shadow: 0 0 12px rgba(52, 157, 215, 0.5);
+}
+
+.tkn-dynamic-island::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111;
+  border: 1.5px solid #222;
+}
+
+.tkn-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* حاوية محتوى الشاشة القابلة للتمرير السلس */
+.tkn-screen-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 48px;
+  padding-bottom: 96px;
+  position: relative;
+}
+
+.tkn-screen-scroll::-webkit-scrollbar {
+  display: none;
+}
+.tkn-screen-scroll {
+  scrollbar-width: none;
+}
+
+/* شريط الهوم السفلي (Home Indicator) */
+.tkn-home-indicator {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 4px;
+  border-radius: 3px;
+  background: #1B2533;
+  opacity: 0.28;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* =====================================================================
+   هيدر التطبيق الموحد (Modern App Top Bar)
+   ===================================================================== */
+.tkn-app-header {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  min-height: 54px;
+  border-bottom: 1px solid rgba(230, 233, 239, 0.7);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.tkn-header-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: var(--bg);
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.18s var(--ease-bounce), background 0.15s ease;
+}
+
+.tkn-header-btn:hover {
+  background: #E6EBF2;
+}
+
+.tkn-header-btn:active {
+  transform: scale(0.92);
+}
+
+.tkn-header-title {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  flex: 1;
+}
+
+/* نبض نقطة الإشعار الحمراء واهتزاز الجرس */
+.tkn-badge-pulse {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 0 0 rgba(206, 16, 126, 0.7);
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0% { box-shadow: 0 0 0 0 rgba(206, 16, 126, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(206, 16, 126, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(206, 16, 126, 0); }
+}
+
+@keyframes bellSwing {
+  0%, 80%, 100% { transform: rotate(0); }
+  85% { transform: rotate(14deg); }
+  90% { transform: rotate(-12deg); }
+  95% { transform: rotate(8deg); }
+}
+
+.tkn-bell-icon {
+  animation: bellSwing 4.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* =====================================================================
+   شريط التنقل السفلي المطور بخمسة تبويبات (5-Tab Modern Bottom Nav)
+   ===================================================================== */
+.tkn-app-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 86px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  padding: 6px 14px 22px;
+  z-index: 80;
+  box-shadow: 0 -4px 20px rgba(27, 37, 51, 0.05);
+}
+
+.tkn-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.18s var(--ease-bounce);
+  position: relative;
+}
+
+.tkn-nav-item svg {
+  transition: transform 0.2s var(--ease-spring), stroke 0.2s ease;
+}
+
+.tkn-nav-item:hover svg {
+  transform: translateY(-2px);
+}
+
+.tkn-nav-item:active {
+  transform: scale(0.93);
+}
+
+.tkn-nav-item.active {
+  color: var(--blue-strong);
+  font-weight: 700;
+}
+
+.tkn-nav-item.active svg {
+  stroke: var(--blue-strong);
+  transform: translateY(-1px);
+}
+
+.tkn-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--blue-strong);
+  animation: pillIn 0.25s var(--ease-spring) both;
+}
+
+@keyframes pillIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* زر الإضافة العائم الأوسط المطور مع نبض ناعم وممتع */
+.tkn-nav-fab {
+  width: 54px;
+  height: 54px;
+  margin-top: -18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-strong) 100%);
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 6px 18px rgba(31, 124, 182, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: transform 0.22s var(--ease-bounce), box-shadow 0.22s ease;
+  position: relative;
+  animation: fabBreathingGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes fabBreathingGlow {
+  0%, 100% {
+    box-shadow: 0 6px 18px rgba(31, 124, 182, 0.38);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 10px 28px rgba(206, 16, 126, 0.45);
+    transform: scale(1.06);
+  }
+}
+
+.tkn-nav-fab:hover {
+  transform: scale(1.08) rotate(90deg) !important;
+  box-shadow: 0 8px 24px rgba(31, 124, 182, 0.5);
+}
+
+.tkn-nav-fab:active {
+  transform: scale(0.92) rotate(45deg);
+}
+
+/* =====================================================================
+   أنميشن لودينج سكرين عدسة تكنيكات المريحة (Aperture Splash Animation)
+   تظل 1.6 ثانية لتريح العين مع إمكانية التخطي أو إعادة التشغيل فوراً
+   ===================================================================== */
+.tkn-splash-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFD 100%);
+  z-index: 250;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  transition: opacity 0.55s var(--ease-spring), transform 0.55s var(--ease-spring), visibility 0.55s;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.tkn-splash-overlay.hidden {
+  opacity: 0;
+  transform: scale(1.04);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.tkn-aperture-box {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* حلقة فتحات العدسة الدوارة الخارجية */
+.tkn-aperture-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px dashed var(--blue);
+  animation: rotateRing 6s linear infinite;
+  box-shadow: 0 0 24px rgba(52, 157, 215, 0.25);
+}
+
+@keyframes rotateRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* مركز العدسة الملون النابض */
+.tkn-aperture-core {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--pink) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseCore 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 10px 24px rgba(52, 157, 215, 0.4);
+}
+
+@keyframes pulseCore {
+  0% { transform: scale(0.92) rotate(-5deg); opacity: 0.9; }
+  100% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+}
+
+.tkn-splash-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.tkn-splash-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.tkn-splash-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-strong);
+  animation: bounceDot 1.2s infinite ease-in-out;
+}
+.tkn-splash-dot:nth-child(2) { animation-delay: 0.2s; background: var(--pink); }
+.tkn-splash-dot:nth-child(3) { animation-delay: 0.4s; background: var(--yellow); }
+
+@keyframes bounceDot {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+.tkn-splash-hint {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* زر عائم لإعادة تشغيل الأنميشن في أي وقت للاستمتاع به */
+.tkn-replay-splash-pill {
+  position: absolute;
+  top: 54px;
+  left: 16px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(27, 37, 51, 0.08);
+  backdrop-filter: blur(8px);
+  color: var(--blue-strong);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-bounce), background 0.15s ease;
+}
+
+.tkn-replay-splash-pill:hover {
+  transform: scale(1.05);
+  background: #FFFFFF;
+}
+
+.tkn-replay-splash-pill:active {
+  transform: scale(0.95);
+}
+
+/* =====================================================================
+   أنميشن دخول العناصر والتفاعل المريح للعين (Fluid Micro-Interactions)
+   انسيابي وواضح بالعين المجردة
+   ===================================================================== */
+.tkn-fade-up {
+  animation: tknFadeUp 0.65s var(--ease-spring) both;
+}
+
+.tkn-delay-1 { animation-delay: 0.08s; }
+.tkn-delay-2 { animation-delay: 0.16s; }
+.tkn-delay-3 { animation-delay: 0.24s; }
+.tkn-delay-4 { animation-delay: 0.32s; }
+
+@keyframes tknFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* كروت تفاعلية بلمسة ناعمة */
+.tkn-touch-card {
+  transition: transform 0.22s var(--ease-bounce), box-shadow 0.22s ease;
+  cursor: pointer;
+}
+
+.tkn-touch-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27, 37, 51, 0.09);
+}
+
+.tkn-touch-card:active {
+  transform: scale(0.96);
+}
+
+/* زر إعجاب بفرقعة مرحة (Heart Pop) */
+.tkn-heart-btn {
+  background: transparent;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.tkn-heart-btn:hover {
+  background: rgba(206, 16, 126, 0.08);
+}
+
+.tkn-heart-btn svg {
+  transition: transform 0.25s var(--ease-bounce), stroke 0.2s ease, fill 0.2s ease;
+}
+
+.tkn-heart-btn.liked svg {
+  fill: var(--pink) !important;
+  stroke: var(--pink) !important;
+  animation: heartPop 0.45s var(--ease-bounce) both;
+}
+
+.tkn-heart-btn.liked {
+  color: var(--pink) !important;
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.45) rotate(-12deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* لوحة سفلية ناعمة بانزلاق مرن (Bottom Sheet Transition) */
+.tkn-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 22, 32, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 110;
+  animation: fadeIn 0.28s ease both;
+}
+
+.tkn-bottom-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #FFFFFF;
+  border-radius: 28px 28px 0 0;
+  padding: 14px 20px 100px;
+  z-index: 120;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+  animation: sheetUp 0.42s var(--ease-spring) both;
+}
+
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tkn-sheet-handle {
+  width: 44px;
+  height: 5px;
+  border-radius: 3px;
+  background: #D5DAE2;
+  margin: 0 auto 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tkn-sheet-handle:hover {
+  background: #B4BCC8;
+}
+
+@media (max-width: 480px) {
+  body {
+    background: var(--bg);
+  }
+  .tkn-device {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+  }
+}

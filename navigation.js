@@ -135,6 +135,8 @@
     });
   }
 
+  // زر التبديل (عرض الموقع / عرض التطبيق) تم إخفاؤه بناءً على الطلب
+  /*
   const switchButton = document.createElement('a');
   switchButton.textContent = isAppScreen ? 'عرض الموقع' : 'عرض التطبيق';
   switchButton.href = isAppScreen ? '../website/01-home.html' : '../app-screens/01-home.html';
@@ -153,4 +155,5 @@
     boxShadow: '0 6px 20px rgba(27,37,51,.18)'
   });
   document.body.appendChild(switchButton);
+  */
 })();

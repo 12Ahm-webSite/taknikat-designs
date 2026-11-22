@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>تصاميم تكنيكات</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +22,15 @@
     input { width:min(420px, calc(100vw - 32px)); padding:0 12px; direction:ltr; }
     button { padding:0 18px; border:0; background:var(--blue-strong); color:#fff; font-weight:600; cursor:pointer; transition:transform .15s ease, background .15s ease; }
     button:hover { background:#176B9E; transform:translateY(-1px); }
-    .comparison { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; }
-    .panel { min-width:0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 4px 18px rgba(27,37,51,.08); }
+    .comparison { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; transition:all .3s ease; }
+    .comparison.is-app { display:flex; justify-content:center; align-items:flex-start; gap:28px; max-width:880px; margin:0 auto; }
+    .comparison.is-app .panel { width:392px; flex:0 0 392px; border-radius:32px; box-shadow:0 16px 40px rgba(27,37,51,.15); }
+    .comparison.is-app iframe { width:100%; height:844px; }
+    .panel { min-width:0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 4px 18px rgba(27,37,51,.08); transition:all .3s ease; }
     .panel-header { display:flex; align-items:center; justify-content:space-between; min-height:58px; padding:10px 14px; border-bottom:1px solid #E6E9EF; }
     .panel-header strong { font-size:16px; }
     .panel-header span { color:var(--muted); font-size:13px; }
-    iframe { display:block; width:100%; height:calc(100vh - 210px); min-height:600px; border:0; background:#fff; }
+    iframe { display:block; width:100%; height:calc(100vh - 210px); min-height:600px; border:0; background:#fff; transition:height .3s ease; }
     .old { border-top:4px solid #A7AFBA; }
     .new { border-top:4px solid var(--blue); }
     @media (max-width:900px) {
@@ -44,6 +50,7 @@
       <select id="page" aria-label="الصفحة"></select>
       <input id="newUrl" type="text" aria-label="رابط النسخة الجديدة" placeholder="رابط النسخة الجديدة بعد الاعتماد">
       <button id="loadNew" type="button">عرض النسخة الجديدة</button>
+      <button id="replayAnimBtn" type="button" style="display:none; background:linear-gradient(135deg, #CE107E, #1F7CB6); color:#fff; font-weight:700; box-shadow:0 4px 12px rgba(206,16,126,0.25);">✨ إعادة تشغيل الأنميشن</button>
     </div>
     <div class="comparison">
       <section class="panel old">
@@ -119,8 +126,11 @@
 
         const filename = href.split('/').pop().split('?')[0].split('#')[0];
         const matched = pages[platform.value].find(([file]) => file === filename);
-        if (matched && platform.value === 'website') {
+        if (matched) {
           page.value = matched[0];
+          if (platform.value === 'app') {
+            oldFrame.src = `app-screens/${matched[0]}`;
+          }
         }
       }, true);
     });
@@ -136,7 +146,18 @@
       updateFrames();
     }
 
+    const comparison = document.querySelector('.comparison');
+    const replayAnimBtn = document.getElementById('replayAnimBtn');
+
     function updateFrames() {
+      if (platform.value === 'app') {
+        comparison.classList.add('is-app');
+        replayAnimBtn.style.display = 'inline-block';
+      } else {
+        comparison.classList.remove('is-app');
+        replayAnimBtn.style.display = 'none';
+      }
+
       if (platform.value === 'website') {
         const isNewOnly = page.value === '09-articles.html' || page.value === '10-videos.html' || page.value === '11-service-order.html';
         if (isNewOnly) {
@@ -148,7 +169,7 @@
       } else {
         const url = `app-screens/${page.value}`;
         oldFrame.src = url;
-        newFrame.src = newUrl.value.trim() || url;
+        newFrame.src = newUrl.value.trim() || `app-screens-new/${page.value}?t=${Date.now()}`;
       }
     }
 
@@ -158,9 +179,39 @@
       if (platform.value === 'website') {
         newFrame.src = newUrl.value.trim() || `website-new/${page.value}`;
       } else {
-        newFrame.src = newUrl.value.trim() || `app-screens/${page.value}`;
+        newFrame.src = newUrl.value.trim() || `app-screens-new/${page.value}?t=${Date.now()}`;
       }
     });
+
+    replayAnimBtn.addEventListener('click', () => {
+      try {
+        if (newFrame.contentWindow && typeof newFrame.contentWindow.tknReplayAnimation === 'function') {
+          newFrame.contentWindow.tknReplayAnimation();
+        } else {
+          newFrame.src = (newUrl.value.trim() || `app-screens-new/${page.value}`) + `?t=${Date.now()}`;
+        }
+      } catch (e) {
+        newFrame.src = (newUrl.value.trim() || `app-screens-new/${page.value}`) + `?t=${Date.now()}`;
+      }
+    });
+
+    function hideSwitchButtons(frame) {
+      try {
+        const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+        if (!doc) return;
+        const style = doc.createElement('style');
+        style.textContent = 'a[href*="website/01-home.html"], a[href*="app-screens/01-home.html"] { display: none !important; }';
+        doc.head.appendChild(style);
+        Array.from(doc.querySelectorAll('a, button')).forEach((el) => {
+          if (el.textContent.includes('عرض الموقع') || el.textContent.includes('عرض التطبيق')) {
+            el.remove();
+          }
+        });
+      } catch (e) {}
+    }
+
+    oldFrame.addEventListener('load', () => hideSwitchButtons(oldFrame));
+    newFrame.addEventListener('load', () => hideSwitchButtons(newFrame));
 
     updatePages();
   </script>
