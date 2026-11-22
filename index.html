@@ -62,6 +62,7 @@
     const pages = {
       website: [
         ['01-home.html', 'الرئيسية'],
+        ['09-articles.html', 'المقالات'],
         ['02-photographer-profile.html', 'صفحة المصور'],
         ['03-services.html', 'الخدمات'],
         ['04-products.html', 'المنتجات'],
@@ -95,6 +96,20 @@
     const newFrame = document.getElementById('newFrame');
     const newUrl = document.getElementById('newUrl');
 
+    newFrame.addEventListener('load', () => {
+      const frameDocument = newFrame.contentDocument;
+      if (!frameDocument) return;
+
+      frameDocument.addEventListener('click', (event) => {
+        const link = event.target.closest('a');
+        if (!link || link.textContent.replace(/\s+/g, ' ').trim() !== 'المقالات') return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        newFrame.src = 'website/09-articles.html';
+      }, true);
+    });
+
     function updatePages() {
       page.replaceChildren();
       pages[platform.value].forEach(([file, label]) => {
@@ -109,14 +124,23 @@
     function updateFrames() {
       const folder = platform.value === 'website' ? 'website' : 'app-screens';
       const url = `${folder}/${page.value}`;
-      oldFrame.src = url;
-      newFrame.src = newUrl.value.trim() || url;
+      if (platform.value === 'website' && page.value === '09-articles.html') {
+        oldFrame.src = 'website/01-home.html';
+        newFrame.src = newUrl.value.trim() || 'website/09-articles.html';
+      } else {
+        oldFrame.src = url;
+        newFrame.src = newUrl.value.trim() || url;
+      }
     }
 
     platform.addEventListener('change', updatePages);
     page.addEventListener('change', updateFrames);
     document.getElementById('loadNew').addEventListener('click', () => {
-      newFrame.src = newUrl.value.trim() || `${platform.value === 'website' ? 'website' : 'app-screens'}/${page.value}`;
+      const folder = platform.value === 'website' ? 'website' : 'app-screens';
+      const defaultUrl = platform.value === 'website' && page.value === '09-articles.html'
+        ? 'website/09-articles.html'
+        : `${folder}/${page.value}`;
+      newFrame.src = newUrl.value.trim() || defaultUrl;
     });
 
     updatePages();
