@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+ ملف: 08-products.html
+ الصفحة: التطبيق — المنتجات
+ النوع: شاشة تطبيق Flutter (مرجع بصري بعرض 390) — تُبنى في Flutter بنفس المقاسات والألوان
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - مثل الخدمات بصور مربعة.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>المنتجات — تطبيق تكنيكات</title>
+<style>
+
+body{margin:0}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input,select,textarea{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="position: relative; width: 390px; height: 1220px; overflow: hidden; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 15px; line-height: 1.6">
+<!-- رأس: المنتجات --><header style="padding: 52px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<a aria-label="رجوع" href="01-home.html" style="width: 44px; height: 44px; border-radius: 12px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #1B2533"><svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22"><path d="m9 18 6-6-6-6"></path></svg></a>
+<h1 style="margin: 0; font-size: 18px; font-weight: 700">المنتجات</h1>
+<button aria-label="تصفية" style="width: 44px; height: 44px; border-radius: 12px; border: 0; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #1B2533" type="button"><svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22"><path d="M4 6h10"></path><path d="M18 6h2"></path><circle cx="16" cy="6" r="2"></circle><path d="M4 18h4"></path><path d="M12 18h8"></path><circle cx="10" cy="18" r="2"></circle><path d="M4 12h2"></path><path d="M10 12h10"></path><circle cx="8" cy="12" r="2"></circle></svg></button>
+</header>
+<div style="padding: 4px 16px 10px; display: flex; gap: 8px">
+<label style="flex: 1; display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: #FFFFFF; color: #5A6577"><svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="18"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg><input aria-label="بحث" placeholder="بحث…" style="flex: 1; min-width: 0; border: 0; background: transparent; font-size: 15px; outline: none" type="search"/></label>
+<button aria-label="تصفية" style="width: 46px; height: 46px; border-radius: 14px; border: 0; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #1B2533" type="button"><svg aria-hidden="true" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="20"><path d="M4 6h10"></path><path d="M18 6h2"></path><circle cx="16" cy="6" r="2"></circle><path d="M4 18h4"></path><path d="M12 18h8"></path><circle cx="10" cy="18" r="2"></circle><path d="M4 12h2"></path><path d="M10 12h10"></path><circle cx="8" cy="12" r="2"></circle></svg></button>
+</div>
+<div style="padding: 0 16px 12px; display: flex; gap: 8px; overflow: hidden"><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #1F7CB6; color: #FFFFFF">الكل</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">كاميرات</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">عدسات</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">إضاءة</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">أخرى</span></div>
+<div style="padding: 0 16px 100px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px"><!-- بطاقة: shahad althani السعودية سوفت بوكس 200 ر.س… --><article style="background: #FFFFFF; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #E3E7EE"><span style="position: absolute; bottom: 6px; right: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 600; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">shahad althani</span></div>
+<div style="padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; gap: 3px; align-items: center; font-size: 11px; color: #5A6577"><svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="11"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>السعودية</span>
+<span style="font-weight: 700; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">سوفت بوكس</span>
+<span style="font-weight: 700; font-size: 13px; color: #1F7CB6; margin-top: 2px">200 ر.س</span>
+</div>
+</article>
+<!-- بطاقة: ياسر القنيص القطيف AF-S NIKKOR 28-300mm 1,000 ر.س… --><article style="background: #FFFFFF; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #E3E7EE"><span style="position: absolute; bottom: 6px; right: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 600; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">ياسر القنيص</span></div>
+<div style="padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; gap: 3px; align-items: center; font-size: 11px; color: #5A6577"><svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="11"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>القطيف</span>
+<span style="font-weight: 700; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">AF-S NIKKOR 28-300mm</span>
+<span style="font-weight: 700; font-size: 13px; color: #1F7CB6; margin-top: 2px">1,000 ر.س</span>
+</div>
+</article>
+<!-- بطاقة: sameh Jooo الإسكندرية أجهزة Vintage من الستينات 99… --><article style="background: #FFFFFF; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #E3E7EE"><span style="position: absolute; bottom: 6px; right: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 600; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">sameh Jooo</span></div>
+<div style="padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; gap: 3px; align-items: center; font-size: 11px; color: #5A6577"><svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="11"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>الإسكندرية</span>
+<span style="font-weight: 700; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">أجهزة Vintage من الستينات</span>
+<span style="font-weight: 700; font-size: 13px; color: #1F7CB6; margin-top: 2px">99 ر.س</span>
+</div>
+</article>
+<!-- بطاقة: ياسين المرهون القطيف عدسة Nikon 400mm f/2.8G 22,00… --><article style="background: #FFFFFF; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #E3E7EE"><span style="position: absolute; bottom: 6px; right: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 600; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">ياسين المرهون</span></div>
+<div style="padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; gap: 3px; align-items: center; font-size: 11px; color: #5A6577"><svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="11"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>القطيف</span>
+<span style="font-weight: 700; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">عدسة Nikon 400mm f/2.8G</span>
+<span style="font-weight: 700; font-size: 13px; color: #1F7CB6; margin-top: 2px">22,000 ر.س</span>
+</div>
+</article>
+<!-- بطاقة: رابية بنت شعيب مكة المكرمة Ronin - S 800 ر.س… --><article style="background: #FFFFFF; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #E3E7EE"><span style="position: absolute; bottom: 6px; right: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 600; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">رابية بنت شعيب</span></div>
+<div style="padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; gap: 3px; align-items: center; font-size: 11px; color: #5A6577"><svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="11"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>مكة المكرمة</span>
+<span style="font-weight: 700; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">Ronin - S</span>
+<span style="font-weight: 700; font-size: 13px; color: #1F7CB6; margin-top: 2px">800 ر.س</span>
+</div>
+</article>
+<!-- بطاقة: adel ahmed إربد كاميرا كانون RP 4,000 ر.س… --><article style="background: #FFFFFF; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column">
+<div style="position: relative; aspect-ratio: 1 / 1; background: #E3E7EE"><span style="position: absolute; bottom: 6px; right: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 600; max-width: 85%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">adel ahmed</span></div>
+<div style="padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; gap: 3px; align-items: center; font-size: 11px; color: #5A6577"><svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="11"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>إربد</span>
+<span style="font-weight: 700; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">كاميرا كانون RP</span>
+<span style="font-weight: 700; font-size: 13px; color: #1F7CB6; margin-top: 2px">4,000 ر.س</span>
+</div>
+</article>
+</div>
+<!-- قائمة تنقل: التنقل الرئيسي --><nav aria-label="التنقل الرئيسي" style="position: absolute; bottom: 0; left: 0; right: 0; height: 84px; background: #FFFFFF; border-top: 1px solid #E6E9EF; display: flex; align-items: flex-start; padding: 0 24px">
+<a href="01-home.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; color: #1F7CB6; font-size: 12px; font-weight: 700"><svg aria-hidden="true" fill="none" height="24" stroke="#1F7CB6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>الرئيسية</a>
+<a aria-label="إضافة واستكشاف" href="02-quick.html" style="width: 60px; height: 60px; margin-top: -22px; border-radius: 50%; background: #1F7CB6; border: 4px solid #FFFFFF; box-shadow: 0 6px 16px rgba(31,124,182,0.35); display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg aria-hidden="true" fill="none" height="28" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="28"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></a>
+<a href="04-profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; color: #5A6577; font-size: 12px; font-weight: 500"><svg aria-hidden="true" fill="none" height="24" stroke="#5A6577" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>حسابي</a>
+</nav>
+</div>
+<script src="../navigation.js"></script>
+</body></html>

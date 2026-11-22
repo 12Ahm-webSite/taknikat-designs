@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+ ملف: 02-quick.html
+ الصفحة: التطبيق — زر الإضافة (Bottom Sheet)
+ النوع: شاشة تطبيق Flutter (مرجع بصري بعرض 390) — تُبنى في Flutter بنفس المقاسات والألوان
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - يُفتح من الزر الدائري الأوسط: «منشور جديد» ثم أنواع الإضافة بأسمائها.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>زر الإضافة — تطبيق تكنيكات</title>
+<style>
+
+body{margin:0}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input,select,textarea{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 15px; line-height: 1.6">
+<!-- رأس:  --><header style="padding: 52px 16px 10px; display: flex; align-items: center; justify-content: space-between; background: #FFFFFF">
+<a aria-label="القائمة" href="03-drawer.html" style="width: 44px; height: 44px; border-radius: 12px; background: #F1F2F6; display: flex; align-items: center; justify-content: center; color: #1B2533"><svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg></a>
+<img alt="تكنيكات" src="../assets/logo.png" style="height: 40px; width: auto; display: block"/>
+<button aria-label="الإشعارات" style="position: relative; width: 44px; height: 44px; border-radius: 12px; border: 0; background: #F1F2F6; display: flex; align-items: center; justify-content: center; color: #1B2533" type="button"><svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span style="position: absolute; top: 10px; left: 11px; width: 8px; height: 8px; border-radius: 50%; background: #CE107E"></span></button>
+</header>
+<div style="position: absolute; inset: 0; background: rgba(15,22,32,0.45)"></div>
+<!-- نافذة منبثقة: إضافة --><div aria-label="إضافة" role="dialog" style="position: absolute; left: 0; right: 0; bottom: 0; background: #FFFFFF; border-radius: 24px 24px 0 0; padding: 12px 20px 110px">
+<div style="width: 40px; height: 5px; border-radius: 3px; background: #D5DAE2; margin: 0 auto 16px"></div>
+<a href="01-home.html" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; border-radius: 14px; background: #1F7CB6; color: #FFFFFF; font-weight: 700"><svg aria-hidden="true" fill="none" height="20" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="20"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>منشور جديد</a>
+<div style="margin: 20px 0 10px; font-size: 13px; color: #5A6577; font-weight: 600">أضف إلى صفحتك</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 8px"><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></span>خدمة</span><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg></span>منتج</span><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><rect height="12" rx="2" width="14" x="2" y="6"></rect><path d="m16 10 6-3v10l-6-3z"></path></svg></span>فيديو</span><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3"></path><path d="M7 5H4v2a3 3 0 0 0 3 3"></path></svg></span>مشاركة في فعالية</span><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><rect height="18" rx="3" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg></span>ألبوم</span><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M4 4h12l4 4v12H4z"></path><path d="M8 12h8"></path><path d="M8 16h5"></path></svg></span>مقال</span><span style="display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-align: center"><span style="width: 56px; height: 56px; border-radius: 18px; background: #EAF5FC; display: flex; align-items: center; justify-content: center; color: #1F7CB6"><svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg></span>تدوينة</span></div>
+</div>
+<!-- قائمة تنقل: التنقل الرئيسي --><nav aria-label="التنقل الرئيسي" style="position: absolute; bottom: 0; left: 0; right: 0; height: 84px; background: #FFFFFF; border-top: 1px solid #E6E9EF; display: flex; align-items: flex-start; padding: 0 24px">
+<a href="01-home.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; color: #1F7CB6; font-size: 12px; font-weight: 700"><svg aria-hidden="true" fill="none" height="24" stroke="#1F7CB6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>الرئيسية</a>
+<a aria-label="إضافة واستكشاف" href="02-quick.html" style="width: 60px; height: 60px; margin-top: -22px; border-radius: 50%; background: #1F7CB6; border: 4px solid #FFFFFF; box-shadow: 0 6px 16px rgba(31,124,182,0.35); display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg aria-hidden="true" fill="none" height="28" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="28"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></a>
+<a href="04-profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; color: #5A6577; font-size: 12px; font-weight: 500"><svg aria-hidden="true" fill="none" height="24" stroke="#5A6577" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>حسابي</a>
+</nav>
+</div>
+<script src="../navigation.js"></script>
+</body></html>

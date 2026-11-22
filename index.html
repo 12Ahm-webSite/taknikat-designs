@@ -1,0 +1,125 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تصاميم تكنيكات</title>
+  <style>
+    :root { --blue:#349DD7; --blue-strong:#1F7CB6; --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:var(--bg); color:var(--ink); font-family:system-ui,sans-serif; }
+    main { width:min(1500px, calc(100% - 32px)); margin:0 auto; padding:24px 0 32px; }
+    h1 { margin:0; text-align:center; }
+    .controls { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:18px 0; }
+    select, input, button { min-height:42px; border:1px solid #D5DAE3; border-radius:10px; background:#fff; color:var(--ink); font:inherit; }
+    select { padding:0 12px; }
+    input { width:min(420px, calc(100vw - 32px)); padding:0 12px; direction:ltr; }
+    button { padding:0 16px; border:0; background:var(--blue-strong); color:#fff; font-weight:700; cursor:pointer; }
+    .comparison { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; }
+    .panel { min-width:0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 4px 18px rgba(27,37,51,.08); }
+    .panel-header { display:flex; align-items:center; justify-content:space-between; min-height:58px; padding:10px 14px; border-bottom:1px solid #E6E9EF; }
+    .panel-header strong { font-size:16px; }
+    .panel-header span { color:var(--muted); font-size:13px; }
+    iframe { display:block; width:100%; height:calc(100vh - 210px); min-height:600px; border:0; background:#fff; }
+    .old { border-top:4px solid #A7AFBA; }
+    .new { border-top:4px solid var(--blue); }
+    @media (max-width:900px) {
+      .comparison { grid-template-columns:1fr; }
+      iframe { height:72vh; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>تصاميم تكنيكات</h1>
+    <div class="controls">
+      <select id="platform" aria-label="نوع التصميم">
+        <option value="website">الموقع</option>
+        <option value="app">التطبيق</option>
+      </select>
+      <select id="page" aria-label="الصفحة"></select>
+      <input id="newUrl" type="text" aria-label="رابط النسخة الجديدة" placeholder="رابط النسخة الجديدة بعد الاعتماد">
+      <button id="loadNew" type="button">عرض النسخة الجديدة</button>
+    </div>
+    <div class="comparison">
+      <section class="panel old">
+        <div class="panel-header">
+          <strong>الشكل الحالي</strong>
+          <span>قبل التعديل</span>
+        </div>
+        <iframe id="oldFrame" title="الشكل الحالي"></iframe>
+      </section>
+      <section class="panel new">
+        <div class="panel-header">
+          <strong>الشكل الجديد</strong>
+          <span>بعد الاعتماد</span>
+        </div>
+        <iframe id="newFrame" title="الشكل الجديد"></iframe>
+      </section>
+    </div>
+  </main>
+  <script>
+    const pages = {
+      website: [
+        ['01-home.html', 'الرئيسية'],
+        ['02-photographer-profile.html', 'صفحة المصور'],
+        ['03-services.html', 'الخدمات'],
+        ['04-products.html', 'المنتجات'],
+        ['05-events.html', 'الفعاليات'],
+        ['06-event-details.html', 'تفاصيل الفعالية'],
+        ['07-event-entry.html', 'المشاركة'],
+        ['08-results-approval.html', 'اعتماد النتائج']
+      ],
+      app: [
+        ['01-home.html', 'الرئيسية'],
+        ['02-quick.html', 'زر الإضافة'],
+        ['03-drawer.html', 'القائمة الجانبية'],
+        ['04-profile.html', 'صفحة المصور'],
+        ['05-profileinfo.html', 'معلومات المصور'],
+        ['06-account.html', 'حالة الحساب'],
+        ['07-services.html', 'الخدمات'],
+        ['08-products.html', 'المنتجات'],
+        ['09-videos.html', 'الفيديوهات'],
+        ['10-events.html', 'الفعاليات'],
+        ['11-event.html', 'داخل الفعالية'],
+        ['12-entry.html', 'المشاركة الواحدة'],
+        ['13-editprofile.html', 'تعديل الملف'],
+        ['14-orders.html', 'طلباتي'],
+        ['15-approval.html', 'اعتماد النتائج']
+      ]
+    };
+
+    const platform = document.getElementById('platform');
+    const page = document.getElementById('page');
+    const oldFrame = document.getElementById('oldFrame');
+    const newFrame = document.getElementById('newFrame');
+    const newUrl = document.getElementById('newUrl');
+
+    function updatePages() {
+      page.replaceChildren();
+      pages[platform.value].forEach(([file, label]) => {
+        const option = document.createElement('option');
+        option.value = file;
+        option.textContent = label;
+        page.appendChild(option);
+      });
+      updateFrames();
+    }
+
+    function updateFrames() {
+      const folder = platform.value === 'website' ? 'website' : 'app-screens';
+      const url = `${folder}/${page.value}`;
+      oldFrame.src = url;
+      newFrame.src = newUrl.value.trim() || url;
+    }
+
+    platform.addEventListener('change', updatePages);
+    page.addEventListener('change', updateFrames);
+    document.getElementById('loadNew').addEventListener('click', () => {
+      newFrame.src = newUrl.value.trim() || `${platform.value === 'website' ? 'website' : 'app-screens'}/${page.value}`;
+    });
+
+    updatePages();
+  </script>
+</body>
+</html>

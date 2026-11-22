@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+ ملف: 12-entry.html
+ الصفحة: التطبيق — المشاركة الواحدة
+ النوع: شاشة تطبيق Flutter (مرجع بصري بعرض 390) — تُبنى في Flutter بنفس المقاسات والألوان
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - الصورة كاملة على خلفية داكنة، التقييم والمشاهدات والتعليقات، الوصف.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>المشاركة الواحدة — تطبيق تكنيكات</title>
+<style>
+
+body{margin:0}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input,select,textarea{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 15px; line-height: 1.6">
+<div style="background: #0F1620; padding: 52px 0 18px">
+<div style="padding: 0 16px 14px; display: flex; justify-content: space-between"><a aria-label="رجوع" href="11-event.html" style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg aria-hidden="true" fill="none" height="20" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="20"><path d="m9 18 6-6-6-6"></path></svg></a><span style="color: #FFFFFF; font-weight: 600">مشاركة #7898</span><span style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="none" height="18" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="18"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4"></path><path d="m15.4 6.5-6.8 4"></path></svg></span></div>
+<div style="aspect-ratio: 3 / 2; background: #2A3547; display: flex; align-items: center; justify-content: center; color: #9AA6B6; font-size: 13px">[الصورة كاملة بمقاسها]</div>
+<div style="display: flex; justify-content: center; gap: 6px; margin-top: 12px"><span style="width: 18px; height: 6px; border-radius: 3px; background: #FFFFFF"></span><span style="width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.4)"></span></div>
+</div>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; gap: 10px; align-items: center"><span style="width: 44px; height: 44px; border-radius: 50%; background: #C9D1DC"></span><span style="flex: 1; line-height: 1.4"><span style="display: block; font-weight: 700">Amir El-Odaimy</span><span style="font-size: 12px; color: #5A6577">15 نوفمبر 2026 · فعالية الحركة</span></span></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center">
+<div style="padding: 10px; border-radius: 14px; background: #FBF4E4; color: #7A5B0C"><div style="font-weight: 700; font-size: 18px">10/10</div><div style="font-size: 11px">تقييم واحد</div></div>
+<div style="padding: 10px; border-radius: 14px; background: #FFFFFF"><div style="font-weight: 700; font-size: 18px">7</div><div style="font-size: 11px; color: #5A6577">مشاهدات</div></div>
+<div style="padding: 10px; border-radius: 14px; background: #FFFFFF"><div style="font-weight: 700; font-size: 18px">0</div><div style="font-size: 11px; color: #5A6577">تعليقات</div></div>
+</div>
+<p dir="auto" style="margin: 0; font-size: 14px; color: #2D3748; line-height: 1.8">Inspired by abstract art, I wanted to capture drifting beyond its traditional form. By experimenting with panning, motion blur, and the movement of smoke…</p>
+<div style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px"><div style="font-weight: 700; display: flex; gap: 6px; align-items: center"><svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="18"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.9A8 8 0 1 1 21 12z"></path></svg>التعليقات</div><div style="font-size: 13px; color: #5A6577">لا توجد تعليقات بعد.</div><div style="height: 44px; border-radius: 12px; background: #F1F2F6; display: flex; align-items: center; padding: 0 12px; color: #5A6577; font-size: 14px">اكتب تعليقًا…</div></div>
+</div>
+</div>
+<script src="../navigation.js"></script>
+</body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+ ملف: 06-account.html
+ الصفحة: التطبيق — حالة الحساب والعضوية
+ النوع: شاشة تطبيق Flutter (مرجع بصري بعرض 390) — تُبنى في Flutter بنفس المقاسات والألوان
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - بطاقة الرتبة وصلاحيات الحساب الإداري.
+   - العضوية والنقاط وشريط التقدم للترقية.
+   - رسم النقاط الشهرية، باقات العضوية (تمرير أفقي)، اختيار العضوية وإرسال الطلب.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>حالة الحساب — تطبيق تكنيكات</title>
+<style>
+
+body{margin:0}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input,select,textarea{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="position: relative; width: 390px; height: 1080px; overflow: hidden; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 15px; line-height: 1.6">
+<!-- رأس: حالة الحساب --><header style="padding: 52px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<a aria-label="رجوع" href="01-home.html" style="width: 44px; height: 44px; border-radius: 12px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #1B2533"><svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22"><path d="m9 18 6-6-6-6"></path></svg></a>
+<h1 style="margin: 0; font-size: 18px; font-weight: 700">حالة الحساب</h1>
+<span style="width: 44px"></span>
+</header>
+<div style="margin: 6px 16px 0; border-radius: 20px; background: #1B2533; color: #FFFFFF; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center"><span style="line-height: 1.4"><span style="display: block; font-size: 12px; color: #C9D1DC">الرتبة واللقب الحالي</span><span style="font-size: 22px; font-weight: 700">مصور إداري</span></span><span style="padding: 4px 12px; border-radius: 999px; background: #CE107E; font-weight: 700; font-size: 13px">TEA</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+<span style="display: inline-flex; gap: 4px; align-items: center; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.12)"><svg aria-hidden="true" fill="none" height="14" stroke="#5BD08A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="14"><path d="M20 6 9 17l-5-5"></path></svg>إنشاء الفعاليات</span>
+<span style="display: inline-flex; gap: 4px; align-items: center; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.12)"><svg aria-hidden="true" fill="none" height="14" stroke="#5BD08A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="14"><path d="M20 6 9 17l-5-5"></path></svg>التحكيم معتمد</span>
+<span style="display: inline-flex; gap: 4px; align-items: center; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.12)"><svg aria-hidden="true" fill="none" height="14" stroke="#EDE518" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>اللقب محمي 365 يومًا</span>
+</div>
+</div>
+<div style="margin: 12px 16px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 14px"><div style="font-size: 12px; color: #5A6577">العضوية الحالية</div><div style="font-weight: 700">عضو مدفوع</div><div style="font-size: 12px; color: #5A6577; direction: ltr; text-align: right">Member Pro</div></div>
+<div style="background: #FFFFFF; border-radius: 18px; padding: 14px"><div style="font-size: 12px; color: #5A6577">النقاط الحالية</div><div style="font-weight: 700; font-size: 22px">5,320</div></div>
+</div>
+<div style="margin: 10px 16px 0; background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; font-size: 14px"><span style="font-weight: 700">الترقية القادمة</span><span style="color: #5A6577">باقي 1,680 نقطة</span></div>
+<div style="height: 10px; border-radius: 999px; background: #EAF5FC; overflow: hidden"><div style="width: 76%; height: 100%; background: #1F7CB6; border-radius: 999px"></div></div>
+</div>
+<div style="margin: 10px 16px 0; background: #FFFFFF; border-radius: 18px; padding: 14px">
+<div style="font-weight: 700; margin-bottom: 10px">النقاط الشهرية</div>
+<div style="height: 170px; display: flex; gap: 6px; align-items: flex-end"><div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%"><span style="font-size: 11px; font-weight: 700">394</span><span style="width: 70%; height: 47px; border-radius: 6px 6px 2px 2px; background: #9CCDEB"></span><span style="font-size: 11px; color: #5A6577">06</span></div><div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%"><span style="font-size: 11px; font-weight: 700">520</span><span style="width: 70%; height: 62px; border-radius: 6px 6px 2px 2px; background: #9CCDEB"></span><span style="font-size: 11px; color: #5A6577">07</span></div><div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%"><span style="font-size: 11px; font-weight: 700">0</span><span style="width: 70%; height: 2px; border-radius: 6px 6px 2px 2px; background: #9CCDEB"></span><span style="font-size: 11px; color: #5A6577">08</span></div><div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%"><span style="font-size: 11px; font-weight: 700">998</span><span style="width: 70%; height: 120px; border-radius: 6px 6px 2px 2px; background: #1F7CB6"></span><span style="font-size: 11px; color: #5A6577">09</span></div><div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%"><span style="font-size: 11px; font-weight: 700">12</span><span style="width: 70%; height: 2px; border-radius: 6px 6px 2px 2px; background: #9CCDEB"></span><span style="font-size: 11px; color: #5A6577">10</span></div><div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%"><span style="font-size: 11px; font-weight: 700">654</span><span style="width: 70%; height: 78px; border-radius: 6px 6px 2px 2px; background: #9CCDEB"></span><span style="font-size: 11px; color: #5A6577">11</span></div></div>
+</div>
+<div style="padding: 18px 16px 10px; display: flex; align-items: center; justify-content: space-between"><h2 style="margin: 0; font-size: 18px; font-weight: 700">باقات العضوية</h2></div>
+<div style="padding: 0 16px; display: flex; gap: 10px; overflow: hidden">
+<div style="flex: none; width: 230px; background: #FFFFFF; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px; border: 2px solid transparent"><div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 700; font-size: 16px">عضو عادي</span></div><span style="font-size: 12px; color: #5A6577; direction: ltr; text-align: right">Member Basic</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 13px"><li style="display: flex; gap: 6px; align-items: flex-start"><svg aria-hidden="true" fill="none" height="16" stroke="#1E8E50" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M20 6 9 17l-5-5"></path></svg><span>المشاركة في الفعاليات العامة</span></li><li style="display: flex; gap: 6px; align-items: flex-start"><svg aria-hidden="true" fill="none" height="16" stroke="#1E8E50" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M20 6 9 17l-5-5"></path></svg><span>كود عضوية رسمي TK</span></li><li style="display: flex; gap: 6px; align-items: flex-start"><svg aria-hidden="true" fill="none" height="16" stroke="#1E8E50" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M20 6 9 17l-5-5"></path></svg><span>إضافة خدمتين شهريًا</span></li></ul></div>
+<div style="flex: none; width: 230px; background: #FFFFFF; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px; border: 2px solid #1F7CB6"><div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 700; font-size: 16px">عضو مدفوع</span><span style="padding: 2px 8px; border-radius: 999px; background: #1F7CB6; color: #FFFFFF; font-size: 11px; font-weight: 700">باقتك</span></div><span style="font-size: 12px; color: #5A6577; direction: ltr; text-align: right">Member Pro</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 13px"><li style="display: flex; gap: 6px; align-items: flex-start"><svg aria-hidden="true" fill="none" height="16" stroke="#1E8E50" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M20 6 9 17l-5-5"></path></svg><span>تجميع النقاط والترقية للرتب والألقاب</span></li><li style="display: flex; gap: 6px; align-items: flex-start"><svg aria-hidden="true" fill="none" height="16" stroke="#1E8E50" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M20 6 9 17l-5-5"></path></svg><span>حماية وقفل اللقب 365 يومًا</span></li><li style="display: flex; gap: 6px; align-items: flex-start"><svg aria-hidden="true" fill="none" height="16" stroke="#1E8E50" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M20 6 9 17l-5-5"></path></svg><span>مزايا العرض في المنصة</span></li></ul></div>
+</div>
+<div style="margin: 14px 16px 0; display: flex; gap: 8px">
+<span style="flex: 1; height: 50px; border-radius: 14px; background: #FFFFFF; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; color: #5A6577">اختر العضوية <svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="18"><path d="m6 9 6 6 6-6"></path></svg></span>
+<span style="width: 120px; height: 50px; border-radius: 14px; background: #1F7CB6; color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center">إرسال الطلب</span>
+</div>
+</div>
+<script src="../navigation.js"></script>
+</body></html>

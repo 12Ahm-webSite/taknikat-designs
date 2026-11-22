@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!--
+ ملف: 06-event-details.html
+ الصفحة: صفحة داخل الفعالية — النتائج والمشاركات
+ النوع: صفحة موقع (عرض 1440 ومتجاوبة مع الجوال)
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - معلومات الفعالية: الملصق بمقاسه، الحالة، التواريخ، تاريخ إعلان النتائج، الأرقام، المنظّم، لجنة التحكيم «معتمد»، الشروط قابلة للطي.
+   - زر «شارك الآن» يظهر فقط أثناء الفعالية.
+   - قسم النتائج يظهر فقط بعد اعتماد المنظّم ونشر النتائج: المراكز (ذهبي/فضي/برونزي) + المتوسط + ملاحظة حسم التعادل إن وجدت. أو قائمة «مشاركة متميزة» أبجديًا للفعاليات الشرفية.
+   - «طريقة التحكيم وحسم التعادل» قابلة للطي — شفافية أمام المشاركين.
+   - كل المشاركات: 6 خيارات ترتيب ظاهرة كأزرار، والصور بلا قص.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>الحركة — الفعاليات | تكنيكات</title>
+<style>
+
+body{margin:0;background:#F1F2F6}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="width: 100%; min-height: 100vh; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 16px; line-height: 1.7">
+<!-- رأس: الرئيسية المقالات الخدمات المنتجات الفيديوهات الفع… --><header style="background: #349DD7; position: sticky; top: 0; z-index: 10">
+<!-- قائمة تنقل: القائمة الرئيسية --><nav aria-label="القائمة الرئيسية" style="max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<a href="#" style="display: inline-flex; color: #FFFFFF">
+<img alt="تكنيكات" src="../assets/logo-on-blue.png" style="height: 50px; width: auto; display: block"/>
+</a>
+<div style="display: flex; flex-wrap: wrap; gap: 4px; font-size: 15px; font-weight: 500">
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">الرئيسية</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">المقالات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">الخدمات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">المنتجات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">الفيديوهات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF; font-weight: 700; border-bottom: 2px solid #FFFFFF">الفعاليات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">من نحن</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">اتصل بنا</a>
+</div>
+<a href="#" style="padding: 9px 22px; border-radius: 999px; background: #FFFFFF; color: #1F7CB6; font-weight: 700; font-size: 15px">تسجيل الدخول</a>
+</nav>
+</header>
+<!-- قائمة تنقل: مسار التنقل --><nav aria-label="مسار التنقل" style="max-width: 1280px; margin: 0 auto; padding: 24px 24px 0; font-size: 14px; color: #5A6577; display: flex; gap: 8px"><a href="#">الفعاليات</a><span aria-hidden="true">/</span><span>الحركة</span></nav>
+
+<!-- قسم: الحركة --><section style="max-width: 1280px; margin: 0 auto; padding: 16px 24px 0; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<div style="flex: 1 1 340px; min-width: 0; max-width: 460px">
+<div style="aspect-ratio: 4 / 5; border-radius: 20px; background: #1F2A3D; display: flex; align-items: center; justify-content: center; color: #9AA6B6; font-size: 15px">[ملصق الفعالية — بمقاسه الأصلي]</div>
+</div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+<span style="padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: #1B2533; color: #FFFFFF">الفعالية منتهية</span>
+<span style="padding: 4px 12px; border-radius: 999px; border: 1px solid #D5DAE2; font-size: 13px; color: #4A5568">فعالية معتمدة</span>
+</div>
+<h1 style="margin: 0; font-size: 44px; font-weight: 700; line-height: 1.2">الحركة</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 10px 24px; color: #4A5568; font-size: 15px">
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="17" rx="2" width="18" x="3" y="4"></rect><path d="M3 9h18"></path><path d="M8 2v4"></path><path d="M16 2v4"></path></svg>1 – 15 نوفمبر 2026</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>إعلان النتائج: 15 نوفمبر 2026</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: #FFFFFF; border-radius: 16px; box-shadow: 0 2px 10px rgba(27,37,51,0.05)">
+<div style="padding: 16px; text-align: center; border-left: 1px solid #EEF0F4"><div style="font-size: 26px; font-weight: 700">209</div><div style="font-size: 13px; color: #5A6577">مشاركة</div></div>
+<div style="padding: 16px; text-align: center; border-left: 1px solid #EEF0F4"><div style="font-size: 26px; font-weight: 700">2</div><div style="font-size: 13px; color: #5A6577">صور لكل مشارك</div></div>
+<div style="padding: 16px; text-align: center"><div style="font-size: 26px; font-weight: 700">3</div><div style="font-size: 13px; color: #5A6577">شهادات لأفضل الأعمال</div></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #5A6577">المنظّم</span>
+<span style="display: inline-flex; align-items: center; gap: 8px; font-weight: 600"><span style="width: 32px; height: 32px; border-radius: 50%; background: #C9D1DC"></span>هدين السعدي</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #5A6577">لجنة التحكيم</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; background: #FFFFFF; font-weight: 600; font-size: 14px"><img alt="" src="../assets/avatar.jpg" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover"/>ياسين المرهون<span aria-label="محكّم معتمد" style="width: 18px; height: 18px; border-radius: 50%; background: #349DD7; display: inline-flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="none" height="11" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" viewbox="0 0 24 24" width="11"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+<span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; background: #FFFFFF; font-weight: 600; font-size: 14px"><span style="width: 28px; height: 28px; border-radius: 50%; background: #C9D1DC"></span>Zuhair Al-Gadheeb<span aria-label="محكّم معتمد" style="width: 18px; height: 18px; border-radius: 50%; background: #349DD7; display: inline-flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="none" height="11" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" viewbox="0 0 24 24" width="11"><path d="M20 6 9 17l-5-5"></path></svg></span></span>
+</div>
+</div>
+</div>
+<details style="background: #FFFFFF; border-radius: 16px; padding: 14px 18px">
+<summary style="cursor: pointer; font-weight: 700">شروط المشاركة</summary>
+<ol style="margin: 10px 0 0; padding: 0 20px 0 0; color: #2D3748; font-size: 15px; display: flex; flex-direction: column; gap: 4px">
+<li>الالتزام بالمحور المطروح.</li><li>المشاركة بصورتين كحد أقصى.</li><li>أن تكون الصورة من تصوير المشارك نفسه.</li><li>لا تُقبل أعمال الحسابات بأسماء وهمية.</li><li>الجودة الفنية: صور بجودة عالية.</li><li>تحتفظ الجهة المنظمة بحق استخدام الصور لأغراض ترويجية مع حفظ حقوق المصور.</li><li>لا تُقبل الأعمال التي تحتوي على إيحاءات غير لائقة دينيًا، أو صور متعلقة بشعائر مذهبية، أو صور فيها عنف.</li>
+</ol>
+</details>
+</div>
+</section>
+
+<!-- قسم: النتائج --><section style="max-width: 1280px; margin: 0 auto; padding: 56px 24px 0">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: end; justify-content: space-between; margin-bottom: 18px">
+<div>
+<div style="display: flex; align-items: center; gap: 12px">
+<span aria-hidden="true" style="width: 14px; height: 14px; border-top: 4px solid #CE107E; border-right: 4px solid #CE107E"></span>
+<h2 style="margin: 0; font-size: 30px; font-weight: 700">النتائج</h2>
+</div>
+<p style="margin: 4px 0 0; color: #5A6577; font-size: 14px">اعتُمدت في 20 نوفمبر 2026 · محكّمان · تحكيم أعمى · مركز واحد لكل مصور</p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+<a href="07-event-entry.html" style="background: #FFFFFF; border-radius: 20px; overflow: hidden; color: #1B2533; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(27,37,51,0.05)">
+<div style="position: relative; aspect-ratio: 4 / 3; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">
+            [صورة المشاركة]
+            <span style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: #E3B505; color: #1B2533">المركز الأول</span>
+</div>
+<div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<span style="font-weight: 700; font-size: 17px">المصور أ</span>
+<span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; background: #FBF4E4; color: #7A5B0C; font-weight: 700; font-size: 14px"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>10.0</span>
+</div>
+<span style="font-size: 13px; color: #5A6577">مشاركة #7898</span>
+</div>
+</a>
+<a href="07-event-entry.html" style="background: #FFFFFF; border-radius: 20px; overflow: hidden; color: #1B2533; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(27,37,51,0.05)">
+<div style="position: relative; aspect-ratio: 4 / 3; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">
+            [صورة المشاركة]
+            <span style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: #B8C2CC; color: #1B2533">المركز الثاني</span>
+</div>
+<div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<span style="font-weight: 700; font-size: 17px">المصور ب</span>
+<span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; background: #FBF4E4; color: #7A5B0C; font-weight: 700; font-size: 14px"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>9.0</span>
+</div>
+<span style="font-size: 13px; color: #5A6577">مشاركة #7896</span>
+</div>
+</a>
+<a href="07-event-entry.html" style="background: #FFFFFF; border-radius: 20px; overflow: hidden; color: #1B2533; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(27,37,51,0.05)">
+<div style="position: relative; aspect-ratio: 4 / 3; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">
+            [صورة المشاركة]
+            <span style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: #C98A4B; color: #FFFFFF">المركز الثالث</span>
+</div>
+<div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<span style="font-weight: 700; font-size: 17px">المصور ج</span>
+<span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; background: #FBF4E4; color: #7A5B0C; font-weight: 700; font-size: 14px"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>8.5</span>
+</div>
+<span style="font-size: 13px; color: #5A6577">مشاركة #7900</span>
+<span style="margin-top: 4px; padding: 8px 10px; border-radius: 10px; background: #F1F2F6; font-size: 12px; color: #4A5568; line-height: 1.6">تعادل في المتوسط مع مشاركة أخرى، وحُسم بتصويت لجنة التحكيم.</span>
+</div>
+</a>
+</div>
+<details style="margin-top: 16px; background: #FFFFFF; border-radius: 16px; padding: 14px 18px">
+<summary style="cursor: pointer; font-weight: 700">طريقة التحكيم وحسم التعادل</summary>
+<ol style="margin: 10px 0 0; padding: 0 20px 0 0; color: #2D3748; font-size: 15px; display: flex; flex-direction: column; gap: 4px">
+<li>تحكيم أعمى: المحكّمون يرون الصورة ورقمها فقط، دون اسم المصور.</li>
+<li>كل محكّم يعطي درجة من 10، والنتيجة هي متوسط درجات المحكمين.</li>
+<li>مركز واحد لكل مصور: يُحتسب أفضل أعماله فقط.</li>
+<li>عند التعادل: يتقدّم العمل الذي حصل على أعلى درجة من أكبر عدد من المحكمين.</li>
+<li>إن استمر التعادل: تصويت لجنة التحكيم بين الأعمال المتعادلة فقط.</li>
+<li>إن تعادل التصويت: قرار المنظّم، ويُنشر سببه مع النتائج.</li>
+</ol>
+</details>
+</section>
+
+<!-- قسم: كل المشاركات (209) --><section style="max-width: 1280px; margin: 0 auto; padding: 56px 24px 72px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 18px">
+<h2 style="margin: 0; font-size: 26px; font-weight: 700">كل المشاركات <span style="color: #5A6577; font-weight: 500; font-size: 18px">(209)</span></h2>
+<div aria-label="ترتيب المشاركات" role="group" style="display: flex; flex-wrap: wrap; gap: 6px">
+<button style="height: 38px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; background: #1F7CB6; color: #FFFFFF; border: 1px solid #1F7CB6" type="button">الأعلى تقييمًا</button>
+<button style="height: 38px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">الأقل تقييمًا</button>
+<button style="height: 38px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">الأحدث</button>
+<button style="height: 38px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">الأقدم</button>
+<button style="height: 38px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">الأكثر تفاعلًا</button>
+<button style="height: 38px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #4A5568; border: 1px solid #D5DAE2" type="button">الأكثر مشاهدة</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; gap: 16px">
+<div style="flex: 1.5000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.5000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Inspired by abstract art, I wanted to capture drifting beyond its traditional form.</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7898</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>10/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>7</span>
+</span>
+</a>
+</div>
+<div style="flex: 1.7778 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.7778; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">More than just speed, drifting is an art</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7897</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>10/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>3</span>
+</span>
+</a>
+</div>
+</div>
+<div style="display: flex; gap: 16px">
+<div style="flex: 0.8000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 0.8000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Captured at the Al Khor Cycle Track</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7896</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>9/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>2</span>
+</span>
+</a>
+</div>
+<div style="flex: 0.8000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 0.8000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">برج آزادي، طهران</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7900</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>8/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>0</span>
+</span>
+</a>
+</div>
+<div style="flex: 1.3300 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.3300; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Documenting the excitement and speed</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7895</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>7/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>4</span>
+</span>
+</a>
+</div>
+<div style="flex: 1.0000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.0000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Shadow and movement</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7892</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>6/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>1</span>
+</span>
+</a>
+</div>
+</div>
+<div style="display: flex; gap: 16px">
+<div style="flex: 0.8000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 0.8000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Animated flowers</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7891</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>6/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>0</span>
+</span>
+</a>
+</div>
+<div style="flex: 1.0000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.0000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">حافظية شيراز، إيران</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7899</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>5/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>0</span>
+</span>
+</a>
+</div>
+<div style="flex: 1.5000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.5000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">حركة على المركب</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7901</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>4/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>6</span>
+</span>
+</a>
+</div>
+</div>
+<div style="display: flex; gap: 16px">
+<div style="flex: 1.5000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.5000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">بين الدراويش</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7889</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>4/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>1</span>
+</span>
+</a>
+</div>
+<div style="flex: 0.6667 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 0.6667; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">إيقاع هادئ: توثيق لحركة الإنسان</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7894</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>3/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>2</span>
+</span>
+</a>
+</div>
+<div style="flex: 1.5000 1 0%; min-width: 0;">
+<a href="07-event-entry.html" style="display: flex; flex-direction: column; gap: 8px; color: #1B2533">
+<span style="display: flex; align-items: center; justify-content: center; aspect-ratio: 1.5000; border-radius: 12px; background: #E3E7EE; color: #5A6577; font-size: 13px">[صورة]</span>
+<span style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">طاقة الحركة: لقطة توثق لحظة الاندفاع</span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: #5A6577">
+<span>#7893</span>
+<span style="display: inline-flex; align-items: center; gap: 3px; color: #7A5B0C; font-weight: 700"><svg aria-hidden="true" fill="currentColor" height="13" viewbox="0 0 24 24" width="13"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg>3/10</span>
+<span style="display: inline-flex; align-items: center; gap: 3px"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>0</span>
+</span>
+</a>
+</div>
+</div>
+</div>
+<div style="display: flex; justify-content: center; margin-top: 32px">
+<button style="padding: 12px 32px; border-radius: 999px; border: 1px solid #D5DAE2; background: #FFFFFF; color: #1B2533; font-weight: 600; font-size: 15px; cursor: pointer" type="button">عرض المزيد</button>
+</div>
+</section>
+<!-- التذييل: منصة المهارات والخدمات والمنتجات التقنية الخدمات ا… --><footer style="background: #FFFFFF; border-top: 1px solid #E6E9EF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 32px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; font-size: 14px; color: #5A6577">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<img alt="تكنيكات" src="../assets/logo.png" style="height: 48px; width: auto; display: block"/>
+<span>منصة المهارات والخدمات والمنتجات التقنية</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px"><a href="#">الخدمات</a><a href="#">المنتجات</a><a href="#">الفيديوهات</a><a href="#">من نحن</a><a href="#">اتصل بنا</a></div>
+<div style="display: flex; flex-direction: column; gap: 4px; direction: ltr; text-align: right"><span>00966545150962</span><span>taknikat@email.com</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<span>حمّل تطبيق تكنيكات</span>
+<div style="display: flex; gap: 8px"><a href="#" style="padding: 8px 14px; border-radius: 10px; background: #1B2533; color: #FFFFFF; font-weight: 600; font-size: 13px">App Store</a><a href="#" style="padding: 8px 14px; border-radius: 10px; background: #1B2533; color: #FFFFFF; font-weight: 600; font-size: 13px">Google Play</a></div>
+</div>
+</div>
+<div style="border-top: 1px solid #EEF0F4; padding: 14px 24px; text-align: center; font-size: 13px; color: #5A6577">© TAKNIKAT. جميع الحقوق محفوظة</div>
+</footer>
+</div>
+<script src="../navigation.js"></script>
+</body></html>

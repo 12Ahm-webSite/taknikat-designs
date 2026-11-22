@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+ ملف: 01-home.html
+ الصفحة: الصفحة الرئيسية للموقع
+ النوع: صفحة موقع (عرض 1440 ومتجاوبة مع الجوال)
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - الهيدر الأزرق الثابت: الشعار + قائمة تكنيكات + تسجيل الدخول.
+   - بطاقة «تحدٍّ وفعالية جارية»: تظهر فقط إذا كان تاريخ اليوم بين بداية ونهاية فعالية (انظر logic/event-status).
+   - معرض «إلهام من مجتمع تكنيكات»: صور المنشورات الرئيسية في صفوف متساوية الارتفاع بلا قص (logic/justified-gallery). النجمة الصفراء = عمل مميز.
+   - الشريط الجانبي بجانب المعرض: خدمة مميزة (سعر تقديري + احجز الآن) ثم الخدمات والمنتجات والعمل المرئي المميز والفعاليات.
+   - التذييل الموحّد: الشعار، الروابط، الهاتف والبريد، روابط التطبيق.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>تكنيكات — الصفحة الرئيسية</title>
+<style>
+
+body{margin:0;background:#F1F2F6}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="width: 100%; min-height: 100vh; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 16px; line-height: 1.7">
+
+<!-- رأس: الرئيسية المقالات الخدمات المنتجات الفيديوهات الفع… --><header style="background: #349DD7; position: sticky; top: 0; z-index: 10">
+<!-- قائمة تنقل: القائمة الرئيسية --><nav aria-label="القائمة الرئيسية" style="max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<a href="#" style="display: inline-flex; color: #FFFFFF">
+<img alt="تكنيكات" src="../assets/logo-on-blue.png" style="height: 50px; width: auto; display: block"/>
+</a>
+<div style="display: flex; flex-wrap: wrap; gap: 4px; font-size: 15px; font-weight: 500">
+<a href="#" style="padding: 8px 12px; color: #FFFFFF; font-weight: 700; border-bottom: 2px solid #FFFFFF">الرئيسية</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">المقالات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">الخدمات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">المنتجات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">الفيديوهات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">الفعاليات</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">من نحن</a>
+<a href="#" style="padding: 8px 12px; color: #FFFFFF">اتصل بنا</a>
+</div>
+<a href="#" style="padding: 9px 22px; border-radius: 999px; background: #FFFFFF; color: #1F7CB6; font-weight: 700; font-size: 15px">تسجيل الدخول</a>
+</nav>
+</header>
+
+
+<!-- قسم: إلهام من مجتمع تكنيكات --><section id="inspire" style="max-width: 1280px; margin: 48px auto 0; padding: 0 24px 72px; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+<div style="flex: 999 1 600px; min-width: 0">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: end; justify-content: space-between; margin-bottom: 18px">
+<div>
+<h2 style="margin: 0; font-size: 30px; font-weight: 700">إلهام من مجتمع تكنيكات</h2>
+<p style="margin: 2px 0 0; color: #5A6577">أحدث المنشورات الرئيسية لأعضاء المنصة</p>
+</div>
+<a href="#" style="font-weight: 600">شاهد الكل</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; border-radius: 16px; overflow: hidden">
+<div style="display: flex; gap: 6px">
+<div style="position: relative; flex: 2.1434 1 0%; aspect-ratio: 2.1434; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<img alt="" src="../assets/watch.jpg" style="width: 100%; height: 100%; object-fit: contain; display: block"/>
+<span aria-label="عمل مميز" style="position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: #EDE518; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="14" viewbox="0 0 24 24" width="14"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg></span>
+<span style="position: absolute; bottom: 10px; right: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(15,22,32,0.6); color: #FFFFFF; font-size: 12px">ياسين المرهون</span>
+</div>
+<div style="position: relative; flex: 0.8000 1 0%; aspect-ratio: 0.8000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · طولية]</div>
+<span style="position: absolute; bottom: 10px; right: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(15,22,32,0.6); color: #FFFFFF; font-size: 12px">باسل الصايدي</span>
+</div>
+</div>
+<div style="display: flex; gap: 6px">
+<div style="position: relative; flex: 1.5000 1 0%; aspect-ratio: 1.5000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · أفقية]</div>
+<span aria-label="عمل مميز" style="position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: #EDE518; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="14" viewbox="0 0 24 24" width="14"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg></span>
+<span style="position: absolute; bottom: 10px; right: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(15,22,32,0.6); color: #FFFFFF; font-size: 12px">Diana Barakat</span>
+</div>
+<div style="position: relative; flex: 1.0000 1 0%; aspect-ratio: 1.0000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · مربعة]</div>
+</div>
+<div style="position: relative; flex: 0.6667 1 0%; aspect-ratio: 0.6667; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · طولية]</div>
+<span style="position: absolute; bottom: 10px; right: 10px; padding: 3px 10px; border-radius: 999px; background: rgba(15,22,32,0.6); color: #FFFFFF; font-size: 12px">Diana Barakat</span>
+</div>
+</div>
+<div style="display: flex; gap: 6px">
+<div style="position: relative; flex: 1.7778 1 0%; aspect-ratio: 1.7778; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · أفقية]</div>
+<span aria-label="عمل مميز" style="position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: #EDE518; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="14" viewbox="0 0 24 24" width="14"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"></path></svg></span>
+</div>
+<div style="position: relative; flex: 1.0000 1 0%; aspect-ratio: 1.0000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · مربعة]</div>
+</div>
+<div style="position: relative; flex: 1.5000 1 0%; aspect-ratio: 1.5000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · أفقية]</div>
+</div>
+</div>
+<div style="display: flex; gap: 6px">
+<div style="position: relative; flex: 0.8000 1 0%; aspect-ratio: 0.8000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · طولية]</div>
+</div>
+<div style="position: relative; flex: 1.3300 1 0%; aspect-ratio: 1.3300; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · أفقية]</div>
+</div>
+<div style="position: relative; flex: 1.0000 1 0%; aspect-ratio: 1.0000; min-width: 0; overflow: hidden; background: #E3E7EE;">
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة · مربعة]</div>
+</div>
+</div>
+</div>
+</div>
+<!-- شريط جانبي: أصوّر منتجات وأشخاص وتصوير تجاري وفعاليات --><aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="background: #FFFFFF; border-radius: 20px; overflow: hidden">
+<div style="aspect-ratio: 16 / 9; background: #E3E7EE; display: flex; align-items: center; justify-content: center; color: #5A6577; font-size: 14px">[صورة الخدمة]</div>
+<div style="padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px">
+<span style="align-self: flex-start; padding: 3px 12px; border-radius: 999px; background: #FCE8F3; color: #B00E6C; font-size: 12px; font-weight: 700">خدمة مميزة · موصى بها</span>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.5">أصوّر منتجات وأشخاص وتصوير تجاري وفعاليات</h3>
+<div style="font-size: 13px; color: #5A6577">Menna Elrefay · المملكة العربية السعودية</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid #EEF0F4">
+<div style="line-height: 1.3"><div style="font-size: 12px; color: #5A6577">السعر التقديري</div><div style="font-size: 18px; font-weight: 700">3,000 ر.س</div></div>
+<a href="#" style="padding: 9px 20px; border-radius: 999px; background: #1F7CB6; color: #FFFFFF; font-weight: 600; font-size: 15px">احجز الآن</a>
+</div>
+</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px"><h3 style="margin: 0; font-size: 18px; font-weight: 700">الخدمات</h3><a href="#" style="font-size: 14px; font-weight: 600">شاهد الكل</a></div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<a href="#" style="display: flex; gap: 12px; align-items: center; color: #1B2533"><span style="width: 56px; height: 56px; border-radius: 12px; background: #E3E7EE; flex: none"></span><span style="font-weight: 500; font-size: 15px; line-height: 1.5">أصوّر منتجات وأشخاص وتصوير تجاري</span></a>
+<a href="#" style="display: flex; gap: 12px; align-items: center; color: #1B2533"><span style="width: 56px; height: 56px; border-radius: 12px; background: #E3E7EE; flex: none"></span><span style="font-weight: 500; font-size: 15px; line-height: 1.5">بيع صور</span></a>
+<a href="#" style="display: flex; gap: 12px; align-items: center; color: #1B2533"><span style="width: 56px; height: 56px; border-radius: 12px; background: #E3E7EE; flex: none"></span><span style="font-weight: 500; font-size: 15px; line-height: 1.5">تصوير فوتوغرافي وجوي وفيديو ومونتاج</span></a>
+</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px"><h3 style="margin: 0; font-size: 18px; font-weight: 700">المنتجات</h3><a href="#" style="font-size: 14px; font-weight: 600">شاهد الكل</a></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<a href="#" style="display: flex; flex-direction: column; gap: 6px; color: #1B2533; font-size: 13px; line-height: 1.4"><span style="aspect-ratio: 1 / 1; border-radius: 12px; background: #F1F2F6"></span>سوفت بوكس</a>
+<a href="#" style="display: flex; flex-direction: column; gap: 6px; color: #1B2533; font-size: 13px; line-height: 1.4"><span style="aspect-ratio: 1 / 1; border-radius: 12px; background: #F1F2F6"></span>عدسة نيكور 28-300</a>
+<a href="#" style="display: flex; flex-direction: column; gap: 6px; color: #1B2533; font-size: 13px; line-height: 1.4"><span style="aspect-ratio: 1 / 1; border-radius: 12px; background: #F1F2F6"></span>أجهزة Vintage</a>
+</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px"><h3 style="margin: 0; font-size: 18px; font-weight: 700">عمل مرئي مميز</h3><a href="#" style="font-size: 14px; font-weight: 600">شاهد الكل</a></div>
+<div style="aspect-ratio: 16 / 9; border-radius: 14px; background: #1B2533; display: flex; align-items: center; justify-content: center"><span style="width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" fill="#1B2533" height="20" viewbox="0 0 24 24" width="20"><path d="M8 5v14l11-7z"></path></svg></span></div>
+<div style="margin-top: 10px; font-weight: 600">لقطات علوية لبعض مشاريع السعودية</div>
+<div style="font-size: 13px; color: #5A6577">MUFLIH ALHABABI</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px"><h3 style="margin: 0; font-size: 18px; font-weight: 700">الفعاليات</h3><a href="#" style="font-size: 14px; font-weight: 600">شاهد الكل</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<a href="#" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 12px; background: #F1F2F6; color: #1B2533; font-weight: 500">الحركة<span style="font-size: 12px; color: #1F7CB6; font-weight: 700">جارية</span></a>
+<a href="#" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 12px; background: #F1F2F6; color: #1B2533; font-weight: 500">اليوم الوطني السعودي<span style="font-size: 12px; color: #5A6577">منتهية</span></a>
+</div>
+</div>
+</aside>
+</section>
+
+<!-- التذييل: منصة المهارات والخدمات والمنتجات التقنية الخدمات ا… --><footer style="background: #FFFFFF; border-top: 1px solid #E6E9EF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 32px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; font-size: 14px; color: #5A6577">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<img alt="تكنيكات" src="../assets/logo.png" style="height: 48px; width: auto; display: block"/>
+<span>منصة المهارات والخدمات والمنتجات التقنية</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 18px"><a href="#">الخدمات</a><a href="#">المنتجات</a><a href="#">الفيديوهات</a><a href="#">من نحن</a><a href="#">اتصل بنا</a></div>
+<div style="display: flex; flex-direction: column; gap: 4px; direction: ltr; text-align: right"><span>00966545150962</span><span>taknikat@email.com</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<span>حمّل تطبيق تكنيكات</span>
+<div style="display: flex; gap: 8px"><a href="#" style="padding: 8px 14px; border-radius: 10px; background: #1B2533; color: #FFFFFF; font-weight: 600; font-size: 13px">App Store</a><a href="#" style="padding: 8px 14px; border-radius: 10px; background: #1B2533; color: #FFFFFF; font-weight: 600; font-size: 13px">Google Play</a></div>
+</div>
+</div>
+<div style="border-top: 1px solid #EEF0F4; padding: 14px 24px; text-align: center; font-size: 13px; color: #5A6577">© TAKNIKAT. جميع الحقوق محفوظة</div>
+</footer>
+</div>
+<script src="../navigation.js"></script>
+</body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+ ملف: 04-profile.html
+ الصفحة: التطبيق — صفحة المصور
+ النوع: شاشة تطبيق Flutter (مرجع بصري بعرض 390) — تُبنى في Flutter بنفس المقاسات والألوان
+ 
+ ماذا تحتوي الصفحة وكيف تعمل:
+   - الغلاف = المنشور الرئيسي، دعوة صديق، مشاركة.
+   - الاسم + أيقونة المعلومات، الرتبة، أزرار: اطلب خدمة / عرض مشاركاتي / اتصال.
+   - تبويبات بكلمات بدل الأيقونات، والمعرض بلا قص.
+ 
+ ملاحظات عامة:
+   - هذا الملف تصميم مرجعي ثابت: البيانات أمثلة، والخانات الرمادية أماكن للصور الحقيقية.
+   - الأنماط مكتوبة داخل العناصر (inline) لسهولة النقل؛ القيم مأخوذة من متغيرات الهوية أعلى الصفحة.
+   - اتجاه الصفحة RTL؛ النسخة الإنجليزية نفس التصميم بعكس الاتجاه (dir="ltr").
+ 
+-->
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<title>صفحة المصور — تطبيق تكنيكات</title>
+<style>
+
+body{margin:0}
+a{color:#1F7CB6;text-decoration:none}a:hover{color:#16618F}
+button,input,select,textarea{font-family:inherit}
+</style>
+<style>
+/* =====================================================================
+   متغيرات الهوية (Design Tokens) — مرجع موحّد للموقع والتطبيق
+   ---------------------------------------------------------------------
+   --font-main      : الخط الرئيسي. غيّره هنا فقط ليتغير في كل الصفحة
+                      (الخط غير معتمد بعد — يختاره صاحب المنصة).
+   --blue           : أزرق تكنيكات الأساسي — الهيدر والتبويب النشط.
+   --blue-strong    : أزرق أغمق للأزرار والروابط (تباين أوضح للنص الأبيض).
+   --pink           : وردي الشعار — شارات الرتب وإطار الصورة الشخصية.
+   --yellow         : أصفر الشعار — النقاط ونجمة العمل المميز.
+   --bg             : خلفية الصفحات الرمادية الفاتحة.
+   --ink            : لون النص الأساسي.  --muted : النص الثانوي.
+   --line           : لون الحدود والفواصل.
+   ===================================================================== */
+:root{
+  --font-main: system-ui, sans-serif;
+  --blue:#349DD7; --blue-strong:#1F7CB6; --pink:#CE107E; --yellow:#EDE518;
+  --bg:#F1F2F6; --ink:#1B2533; --muted:#5A6577; --line:#E6E9EF;
+}
+</style></head>
+<body>
+<div dir="rtl" style="position: relative; width: 390px; height: 1200px; overflow: hidden; background: #F1F2F6; color: #1B2533; font-family: var(--font-main); font-size: 15px; line-height: 1.6">
+<div style="position: relative; height: 250px; background: #1B2533; overflow: hidden">
+<img alt="المنشور الرئيسي" src="../assets/watch.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block"/>
+<div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,22,32,0.6), rgba(15,22,32,0) 55%, rgba(15,22,32,0.35))"></div>
+<div style="position: absolute; top: 52px; left: 16px; right: 16px; display: flex; justify-content: space-between">
+<span style="padding: 6px 12px; border-radius: 999px; background: #F59E0B; color: #1B2533; font-size: 12px; font-weight: 700; display: inline-flex; gap: 6px; align-items: center"><svg aria-hidden="true" fill="none" height="15" stroke="#1B2533" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="15"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13"></path><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"></path></svg>دعوة صديق</span>
+<span style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; color: #1B2533"><svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="18"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4"></path><path d="m15.4 6.5-6.8 4"></path></svg></span>
+</div>
+</div>
+<div style="padding: 0 16px; margin-top: -48px; position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px">
+<img alt="صورة ياسين المرهون" src="../assets/avatar.jpg" style="width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 4px solid #FFFFFF; outline: 3px solid #CE107E"/>
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 6px"><h1 style="margin: 0; font-size: 22px; font-weight: 700">ياسين المرهون</h1><a aria-label="المعلومات" href="05-profileinfo.html" style="color: #1F7CB6"><svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="22"><circle cx="12" cy="12" r="10"></circle><path d="M12 11v6"></path><path d="M12 7.5h.01"></path></svg></a></div>
+<div style="font-size: 14px; color: #4A5568"><span style="color: #CE107E; font-weight: 700">مصور إداري</span> · مؤسس تكنيكات</div>
+<div style="display: flex; gap: 8px; width: 100%; margin-top: 12px">
+<span style="flex: 1; height: 46px; border-radius: 14px; background: #1F7CB6; color: #FFFFFF; font-weight: 700; display: flex; align-items: center; justify-content: center">اطلب خدمة</span>
+<span style="flex: 1; height: 46px; border-radius: 14px; background: #FFFFFF; color: #1F7CB6; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 1.5px solid #1F7CB6">عرض مشاركاتي</span>
+<span aria-label="اتصال" style="width: 46px; height: 46px; border-radius: 14px; background: #FFFFFF; color: #1F7CB6; display: flex; align-items: center; justify-content: center; border: 1.5px solid #D5DAE2"><svg aria-hidden="true" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="20"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span>
+</div>
+</div>
+<!-- قائمة تنقل: أقسام الصفحة --><nav aria-label="أقسام الصفحة" style="margin-top: 16px; background: #FFFFFF; border-bottom: 1px solid #E6E9EF; display: flex; gap: 4px; padding: 0 12px; overflow: hidden"><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #1F7CB6; font-weight: 700; border-bottom: 3px solid #349DD7">ألبوماتي</span><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #4A5568; border-bottom: 3px solid transparent">خدماتي</span><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #4A5568; border-bottom: 3px solid transparent">منتجاتي</span><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #4A5568; border-bottom: 3px solid transparent">فيديوهاتي</span><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #4A5568; border-bottom: 3px solid transparent">مقالاتي</span><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #4A5568; border-bottom: 3px solid transparent">فعالياتي</span><span style="flex: none; padding: 12px 10px 9px; font-size: 14px; color: #4A5568; border-bottom: 3px solid transparent">مشاركاتي</span></nav>
+<div style="height: 12px"></div><div style="padding: 0 16px 12px; display: flex; gap: 8px; overflow: hidden"><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #1F7CB6; color: #FFFFFF">كل أعمالي</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">المنتجات</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">الفعاليات</span><span style="flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #4A5568">البورتريه</span></div>
+<div style="padding: 0 16px; display: flex; flex-direction: column; gap: 4px"><div style="display: flex; gap: 4px"><div style="flex: 2.140 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 2.140; background: #E3E7EE; border-radius: 6px; overflow: hidden"><img alt="" src="../assets/watch.jpg" style="width: 100%; height: 100%; object-fit: contain; display: block"/></div></div><div style="flex: 1.000 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 1.000; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div></div><div style="display: flex; gap: 4px"><div style="flex: 0.800 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 0.800; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div><div style="flex: 1.500 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 1.500; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div><div style="flex: 0.670 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 0.670; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div></div><div style="display: flex; gap: 4px"><div style="flex: 1.000 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 1.000; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div><div style="flex: 1.780 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 1.780; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div></div><div style="display: flex; gap: 4px"><div style="flex: 0.800 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 0.800; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div><div style="flex: 1.500 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 1.500; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div><div style="flex: 1.000 1 0%; min-width: 0"><div style="position: relative; aspect-ratio: 1.000; background: #E3E7EE; border-radius: 6px; overflow: hidden"></div></div></div></div>
+<!-- قائمة تنقل: التنقل الرئيسي --><nav aria-label="التنقل الرئيسي" style="position: absolute; bottom: 0; left: 0; right: 0; height: 84px; background: #FFFFFF; border-top: 1px solid #E6E9EF; display: flex; align-items: flex-start; padding: 0 24px">
+<a href="01-home.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; color: #5A6577; font-size: 12px; font-weight: 500"><svg aria-hidden="true" fill="none" height="24" stroke="#5A6577" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>الرئيسية</a>
+<a aria-label="إضافة واستكشاف" href="02-quick.html" style="width: 60px; height: 60px; margin-top: -22px; border-radius: 50%; background: #1F7CB6; border: 4px solid #FFFFFF; box-shadow: 0 6px 16px rgba(31,124,182,0.35); display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg aria-hidden="true" fill="none" height="28" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="28"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></a>
+<a href="04-profile.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; color: #1F7CB6; font-size: 12px; font-weight: 700"><svg aria-hidden="true" fill="none" height="24" stroke="#1F7CB6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>حسابي</a>
+</nav>
+</div>
+<script src="../navigation.js"></script>
+</body></html>
